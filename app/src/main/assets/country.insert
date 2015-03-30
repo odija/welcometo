@@ -1,0 +1,657 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<icc>
+INSERT INTO "country" ("id", "name", "phone_code") VALUES ('AF', 'Afghanistan', 93);
+INSERT INTO "country" ("id", "name", "phone_code") VALUES ('AL', 'Albania',355);
+INSERT INTO "country" ("id", "name", "phone_code") VALUES ('DZ', 'Algeria',213);
+INSERT INTO "country" ("id", "name", "phone_code") VALUES ('AD');
+INSERT INTO "country" ("id", "name", "phone_code") VALUES ('AO');
+INSERT INTO "country" ("id", "name", "phone_code") VALUES ('AI', 'Anguilla', 54);
+INSERT INTO "country" ("id", "name", "phone_code") VALUES ('AQ');
+INSERT INTO "country" ("id", "name", "phone_code") VALUES ('AR', 'Argentina', 54);
+INSERT INTO "country" ("id", "name", "phone_code") VALUES ('AM');
+INSERT INTO "country" ("id", "name", "phone_code") VALUES ('AW');
+INSERT INTO "country" ("id", "name", "phone_code") VALUES ('AU', 'Australia', 61);
+INSERT INTO "country" ("id", "name", "phone_code") VALUES ('AT', 'Austria', 43);
+INSERT INTO "country" ("id", "name", "phone_code") VALUES ('AZ');
+INSERT INTO "country" ("id", "name", "phone_code") VALUES ('BH');
+INSERT INTO "country" ("id", "name", "phone_code") VALUES ('BD');
+INSERT INTO "country" ("id", "name", "phone_code") VALUES ('BY');
+INSERT INTO "country" ("id", "name", "phone_code") VALUES ('BE', 'Belgium', 32);
+INSERT INTO "country" ("id", "name", "phone_code") VALUES ('BZ');
+INSERT INTO "country" ("id", "name", "phone_code") VALUES ('BJ');
+INSERT INTO "country" ("id", "name", "phone_code") VALUES ('BT');
+INSERT INTO "country" ("id", "name", "phone_code") VALUES ('BO');
+INSERT INTO "country" ("id", "name", "phone_code") VALUES ('BA', 'Bosnia and Herzegovina', 387);
+INSERT INTO "country" ("id", "name", "phone_code") VALUES ('BW');
+INSERT INTO "country" ("id", "name", "phone_code") VALUES ('BR', 'Brazil', 55);
+INSERT INTO "country" ("id", "name", "phone_code") VALUES ('BN');
+INSERT INTO "country" ("id", "name", "phone_code") VALUES ('BG');
+INSERT INTO "country" ("id", "name", "phone_code") VALUES ('BF', 'Burkina Faso', 226);
+INSERT INTO "country" ("id", "name", "phone_code") VALUES ('BI');
+INSERT INTO "country" ("id", "name", "phone_code") VALUES ('KH');
+INSERT INTO "country" ("id", "name", "phone_code") VALUES ('CM');
+INSERT INTO "country" ("id", "name", "phone_code") VALUES ('CA', 'Canada', 1);
+INSERT INTO "country" ("id", "name", "phone_code") VALUES ('CF', 'Central African Republic', 236);
+INSERT INTO "country" ("id", "name", "phone_code") VALUES ('TD');
+INSERT INTO "country" ("id", "name", "phone_code") VALUES ('CL', 'Chile', 56);
+INSERT INTO "country" ("id", "name", "phone_code") VALUES ('CN', 'China', 86);
+INSERT INTO "country" ("id", "name", "phone_code") VALUES ('CC', 'Cocos [Keeling] Islands', 61);
+INSERT INTO "country" ("id", "name", "phone_code") VALUES ('CO', 'Colombia', 57);
+INSERT INTO "country" ("id", "name", "phone_code") VALUES ('KM');
+INSERT INTO "country" ("id", "name", "phone_code") VALUES ('CG', 'Congo - Brazzaville', 242);
+INSERT INTO "country" ("id", "name", "phone_code") VALUES ('CD', 'Congo - Kinshasa', 243);
+INSERT INTO "country" ("id", "name", "phone_code") VALUES ('CK', 'Cook Islands', 682);
+INSERT INTO "country" ("id", "name", "phone_code") VALUES ('CR', 'Costa Rica', 506);
+INSERT INTO "country" ("id", "name", "phone_code") VALUES ('HR');
+INSERT INTO "country" ("id", "name", "phone_code") VALUES ('CU', 'Cuba', 53);
+INSERT INTO "country" ("id", "name", "phone_code") VALUES ('CY');
+INSERT INTO "country" ("id", "name", "phone_code") VALUES ('CZ', 'Czech Republic', 420);
+INSERT INTO "country" ("id", "name", "phone_code") VALUES ('CI', 'C√¥te d‚ÄôIvoire', 225);
+INSERT INTO "country" ("id", "name", "phone_code") VALUES ('DK', 'Denmark', 45);
+INSERT INTO "country" ("id", "name", "phone_code") VALUES ('DJ');;
+INSERT INTO "country" ("id", "name", "phone_code") VALUES ('EC');
+INSERT INTO "country" ("id", "name", "phone_code") VALUES ('EG', 'Egypt', 20);
+INSERT INTO "country" ("id", "name", "phone_code") VALUES ('SV', 'El Salvador', 503);
+INSERT INTO "country" ("id", "name", "phone_code") VALUES ('GQ', 'Equatorial Guinea', 240);
+INSERT INTO "country" ("id", "name", "phone_code") VALUES ('ER');
+INSERT INTO "country" ("id", "name", "phone_code") VALUES ('EE');
+INSERT INTO "country" ("id", "name", "phone_code") VALUES ('ET');
+INSERT INTO "country" ("id", "name", "phone_code") VALUES ('FK', 'Falkland Islands', 500);
+INSERT INTO "country" ("id", "name", "phone_code") VALUES ('FO', 'Faroe Islands', 298);
+INSERT INTO "country" ("id", "name", "phone_code") VALUES ('FJ');
+INSERT INTO "country" ("id", "name", "phone_code") VALUES ('FI');
+INSERT INTO "country" ("id", "name", "phone_code") VALUES ('FR', 'France', 33);
+INSERT INTO "country" ("id", "name", "phone_code") VALUES ('PF', 'French Polynesia', 689);
+INSERT INTO "country" ("id", "name", "phone_code") VALUES ('GA');
+INSERT INTO "country" ("id", "name", "phone_code") VALUES ('GM');
+INSERT INTO "country" ("id", "name", "phone_code") VALUES ('GE');
+INSERT INTO "country" ("id", "name", "phone_code") VALUES ('DE', 'Germany', 49);
+INSERT INTO "country" ("id", "name", "phone_code") VALUES ('GH');
+INSERT INTO "country" ("id", "name", "phone_code") VALUES ('GI');
+INSERT INTO "country" ("id", "name", "phone_code") VALUES ('GR', 'Greece', 30);
+INSERT INTO "country" ("id", "name", "phone_code") VALUES ('GL');
+INSERT INTO "country" ("id", "name", "phone_code") VALUES ('GT');
+INSERT INTO "country" ("id", "name", "phone_code") VALUES ('GN');
+INSERT INTO "country" ("id", "name", "phone_code") VALUES ('GW', 'Guinea-Bissau', 245);
+INSERT INTO "country" ("id", "name", "phone_code") VALUES ('GY');
+INSERT INTO "country" ("id", "name", "phone_code") VALUES ('HT');
+INSERT INTO "country" ("id", "name", "phone_code") VALUES ('HN');
+INSERT INTO "country" ("id", "name", "phone_code") VALUES ('HK', 'Hong Kong SAR China', 852);
+INSERT INTO "country" ("id", "name", "phone_code") VALUES ('HU', 'Hungary', 36);
+INSERT INTO "country" ("id", "name", "phone_code") VALUES ('IS');
+INSERT INTO "country" ("id", "name", "phone_code") VALUES ('IN', 'India', 91);
+INSERT INTO "country" ("id", "name", "phone_code") VALUES ('ID', 'Indonesia', 62);
+INSERT INTO "country" ("id", "name", "phone_code") VALUES ('IR', 'Iran', 98);
+INSERT INTO "country" ("id", "name", "phone_code") VALUES ('IQ');
+INSERT INTO "country" ("id", "name", "phone_code") VALUES ('IE');
+INSERT INTO "country" ("id", "name", "phone_code") VALUES ('IM', 'Isle of Man', 44);
+INSERT INTO "country" ("id", "name", "phone_code") VALUES ('IL');
+INSERT INTO "country" ("id", "name", "phone_code") VALUES ('IT', 'Italy', 39);
+INSERT INTO "country" ("id", "name", "phone_code") VALUES ('JM', 'Jamaica', 1);
+INSERT INTO "country" ("id", "name", "phone_code") VALUES ('JP', 'Japan', 81);
+INSERT INTO "country" ("id", "name", "phone_code") VALUES ('KZ', 'Kazakhstan', 7);
+INSERT INTO "country" ("id", "name", "phone_code") VALUES ('KE');
+INSERT INTO "country" ("id", "name", "phone_code") VALUES ('KI');
+INSERT INTO "country" ("id", "name", "phone_code") VALUES ('KW');
+INSERT INTO "country" ("id", "name", "phone_code") VALUES ('KG');
+INSERT INTO "country" ("id", "name", "phone_code") VALUES ('LA');
+INSERT INTO "country" ("id", "name", "phone_code") VALUES ('LV');
+INSERT INTO "country" ("id", "name", "phone_code") VALUES ('LB');
+INSERT INTO "country" ("id", "name", "phone_code") VALUES ('LS');
+INSERT INTO "country" ("id", "name", "phone_code") VALUES ('LR');
+INSERT INTO "country" ("id", "name", "phone_code") VALUES ('LY');
+INSERT INTO "country" ("id", "name", "phone_code") VALUES ('LI');
+INSERT INTO "country" ("id", "name", "phone_code") VALUES ('LT');
+INSERT INTO "country" ("id", "name", "phone_code") VALUES ('LU');
+INSERT INTO "country" ("id", "name", "phone_code") VALUES ('MO', 'Macau SAR China', 853);
+INSERT INTO "country" ("id", "name", "phone_code") VALUES ('MK', 'Macedonia',389);
+INSERT INTO "country" ("id", "name", "phone_code") VALUES ('MG');
+INSERT INTO "country" ("id", "name", "phone_code") VALUES ('MW');
+INSERT INTO "country" ("id", "name", "phone_code") VALUES ('MY', 'Malaysia', 60);
+INSERT INTO "country" ("id", "name", "phone_code") VALUES ('MV');
+INSERT INTO "country" ("id", "name", "phone_code") VALUES ('ML');
+INSERT INTO "country" ("id", "name", "phone_code") VALUES ('MT');
+INSERT INTO "country" ("id", "name", "phone_code") VALUES ('MH', 'Marshall Islands', 692);
+INSERT INTO "country" ("id", "name", "phone_code") VALUES ('MR');
+INSERT INTO "country" ("id", "name", "phone_code") VALUES ('MU');
+INSERT INTO "country" ("id", "name", "phone_code") VALUES ('YT', 'Mayotte',262);
+INSERT INTO "country" ("id", "name", "phone_code") VALUES ('MX', 'Mexico', 52);
+INSERT INTO "country" ("id", "name", "phone_code") VALUES ('FM');
+INSERT INTO "country" ("id", "name", "phone_code") VALUES ('MD');
+INSERT INTO "country" ("id", "name", "phone_code") VALUES ('MC');
+INSERT INTO "country" ("id", "name", "phone_code") VALUES ('MN');
+INSERT INTO "country" ("id", "name", "phone_code") VALUES ('ME');
+INSERT INTO "country" ("id", "name", "phone_code") VALUES ('MA');
+INSERT INTO "country" ("id", "name", "phone_code") VALUES ('MZ');
+INSERT INTO "country" ("id", "name", "phone_code") VALUES ('NA');
+INSERT INTO "country" ("id", "name", "phone_code") VALUES ('NR');
+INSERT INTO "country" ("id", "name", "phone_code") VALUES ('NP');
+INSERT INTO "country" ("id", "name", "phone_code") VALUES ('NL', 'Netherlands', 31);
+INSERT INTO "country" ("id", "name", "phone_code") VALUES ('AN', 'Netherlands Antilles', 599);
+INSERT INTO "country" ("id", "name", "phone_code") VALUES ('NC', 'New Caledonia', 687);
+INSERT INTO "country" ("id", "name", "phone_code") VALUES ('NZ', 'New Zealand', 64);
+INSERT INTO "country" ("id", "name", "phone_code") VALUES ('NI');
+INSERT INTO "country" ("id", "name", "phone_code") VALUES ('NE');
+INSERT INTO "country" ("id", "name", "phone_code") VALUES ('NG');
+INSERT INTO "country" ("id", "name", "phone_code") VALUES ('NU');
+INSERT INTO "country" ("id", "name", "phone_code") VALUES ('KP', 'North Korea', 850);
+INSERT INTO "country" ("id", "name", "phone_code") VALUES ('NO', 'Norway', 47);
+INSERT INTO "country" ("id", "name", "phone_code") VALUES ('OM');
+INSERT INTO "country" ("id", "name", "phone_code") VALUES ('PK', 'Pakistan', 92);
+INSERT INTO "country" ("id", "name", "phone_code") VALUES ('PW');
+INSERT INTO "country" ("id", "name", "phone_code") VALUES ('PA');
+INSERT INTO "country" ("id", "name", "phone_code") VALUES ('PG', 'Papua New Guinea', 675);
+INSERT INTO "country" ("id", "name", "phone_code") VALUES ('PY');
+INSERT INTO "country" ("id", "name", "phone_code") VALUES ('PE', 'Peru', 51);
+INSERT INTO "country" ("id", "name", "phone_code") VALUES ('PH', 'Philippines', 63);
+INSERT INTO "country" ("id", "name", "phone_code") VALUES ('PN', 'Pitcairn Islands', 870);
+INSERT INTO "country" ("id", "name", "phone_code") VALUES ('PL', 'Poland', 48);
+INSERT INTO "country" ("id", "name", "phone_code") VALUES ('PT');
+INSERT INTO "country" ("id", "name", "phone_code") VALUES ('PR', 'Puerto Rico', 1);
+INSERT INTO "country" ("id", "name", "phone_code") VALUES ('QA');
+INSERT INTO "country" ("id", "name", "phone_code") VALUES ('RO', 'Romania', 40);
+INSERT INTO "country" ("id", "name", "phone_code") VALUES ('RU', 'Russia', 7);
+INSERT INTO "country" ("id", "name", "phone_code") VALUES ('RW');
+INSERT INTO "country" ("id", "name", "phone_code") VALUES ('BL', 'Saint Barth√©lemy', 590);
+INSERT INTO "country" ("id", "name", "phone_code") VALUES ('SH', 'Saint Helena', 290);
+INSERT INTO "country" ("id", "name", "phone_code") VALUES ('PM', 'Saint Pierre and Miquelon', 508);
+INSERT INTO "country" ("id", "name", "phone_code") VALUES ('WS');
+INSERT INTO "country" ("id", "name", "phone_code") VALUES ('SM', 'San Marino', 378);
+INSERT INTO "country" ("id", "name", "phone_code") VALUES ('SA', 'Saudi Arabia', 966);
+INSERT INTO "country" ("id", "name", "phone_code") VALUES ('SN');
+INSERT INTO "country" ("id", "name", "phone_code") VALUES ('RS');
+INSERT INTO "country" ("id", "name", "phone_code") VALUES ('CS');
+INSERT INTO "country" ("id", "name", "phone_code") VALUES ('SC');
+INSERT INTO "country" ("id", "name", "phone_code") VALUES ('SL', 'Sierra Leone', 232);
+INSERT INTO "country" ("id", "name", "phone_code") VALUES ('SG', 'Singapore', 65);
+INSERT INTO "country" ("id", "name", "phone_code") VALUES ('SK');
+INSERT INTO "country" ("id", "name", "phone_code") VALUES ('SI');
+INSERT INTO "country" ("id", "name", "phone_code") VALUES ('SB', 'Solomon Islands', 677);
+INSERT INTO "country" ("id", "name", "phone_code") VALUES ('SO');
+INSERT INTO "country" ("id", "name", "phone_code") VALUES ('ZA', 'South Africa', 27);
+INSERT INTO "country" ("id", "name", "phone_code") VALUES ('KR', 'South Korea', 82);
+INSERT INTO "country" ("id", "name", "phone_code") VALUES ('ES', 'Spain', 34);
+INSERT INTO "country" ("id", "name", "phone_code") VALUES ('LK', 'Sri Lanka', 94);
+INSERT INTO "country" ("id", "name", "phone_code") VALUES ('SD');
+INSERT INTO "country" ("id", "name", "phone_code") VALUES ('SR');
+INSERT INTO "country" ("id", "name", "phone_code") VALUES ('SZ');
+INSERT INTO "country" ("id", "name", "phone_code") VALUES ('SE', 'Sweden', 46);
+INSERT INTO "country" ("id", "name", "phone_code") VALUES ('CH', 'Switzerland', 41);
+INSERT INTO "country" ("id", "name", "phone_code") VALUES ('SY');
+INSERT INTO "country" ("id", "name", "phone_code") VALUES ('ST', 'S√£o Tom√© and Pr√≠ncipe', 239);
+INSERT INTO "country" ("id", "name", "phone_code") VALUES ('TW');
+INSERT INTO "country" ("id", "name", "phone_code") VALUES ('TJ');
+INSERT INTO "country" ("id", "name", "phone_code") VALUES ('TZ');
+INSERT INTO "country" ("id", "name", "phone_code") VALUES ('TH', 'Thailand', 66);
+INSERT INTO "country" ("id", "name", "phone_code") VALUES ('TL', 'Timor-Leste', 670);
+INSERT INTO "country" ("id", "name", "phone_code") VALUES ('TG');
+INSERT INTO "country" ("id", "name", "phone_code") VALUES ('TK');
+INSERT INTO "country" ("id", "name", "phone_code") VALUES ('TO');
+INSERT INTO "country" ("id", "name", "phone_code") VALUES ('TT', 'Trinidad and Tobago', 1);
+INSERT INTO "country" ("id", "name", "phone_code") VALUES ('TN');
+INSERT INTO "country" ("id", "name", "phone_code") VALUES ('TR', 'Turkey', 90);
+INSERT INTO "country" ("id", "name", "phone_code") VALUES ('TM');
+INSERT INTO "country" ("id", "name", "phone_code") VALUES ('TV');
+INSERT INTO "country" ("id", "name", "phone_code") VALUES ('UG');
+INSERT INTO "country" ("id", "name", "phone_code") VALUES ('UA');
+INSERT INTO "country" ("id", "name", "phone_code") VALUES ('AE', 'United Arab Emirates', 971);
+INSERT INTO "country" ("id", "name", "phone_code") VALUES ('GB', 'United Kingdom', 44);
+INSERT INTO "country" ("id", "name", "phone_code") VALUES ('US', 'United States', 1);
+INSERT INTO "country" ("id", "name", "phone_code") VALUES ('UY');
+INSERT INTO "country" ("id", "name", "phone_code") VALUES ('UZ');
+INSERT INTO "country" ("id", "name", "phone_code") VALUES ('VU');
+INSERT INTO "country" ("id", "name", "phone_code") VALUES ('VA', 'Vatican City', 39);
+INSERT INTO "country" ("id", "name", "phone_code") VALUES ('VE', 'Venezuela', 58);
+INSERT INTO "country" ("id", "name", "phone_code") VALUES ('VN', 'Vietnam', 84);
+INSERT INTO "country" ("id", "name", "phone_code") VALUES ('YE');
+INSERT INTO "country" ("id", "name", "phone_code") VALUES ('ZM');
+INSERT INTO "country" ("id", "name", "phone_code") VALUES ('ZW');
+
+
+
+
+
+
+INSERT INTO `country_currency` (`country`, `currency`) VALUES
+('AF', 'AFN'),
+('AL', 'ALL'),
+('DZ', 'DZD'),
+('AS', 'USD'),
+('AD', 'EUR'),
+('AO', 'AOA'),
+('AI', 'XCD'),
+('AG', 'XCD'),
+('AR', 'ARS'),
+('AM', 'AMD'),
+('AW', 'AWG'),
+('AU', 'AUD'),
+('AT', 'EUR'),
+('AZ', 'AZN'),
+('BS', 'BSD'),
+('BH', 'BHD'),
+('BD', 'BDT'),
+('BB', 'BBD'),
+('BY', 'BYR'),
+('BE', 'EUR'),
+('BZ', 'BZD'),
+('BJ', 'XOF'),
+('BM', 'BMD'),
+('BT', 'BTN'),
+('BO', 'BOB'),
+('BA', 'BAM'),
+('BW', 'BWP'),
+('BV', 'NOK'),
+('BR', 'BRL'),
+('IO', 'USD'),
+('VG', 'USD'),
+('BN', 'USD'),
+('BG', 'BGN'),
+('BF', 'XOF'),
+('BI', 'BIF'),
+('KH', 'KHR'),
+('CM', 'XAF'),
+('CA', 'CAD'),
+('CV', 'CVE'),
+('KY', 'KYD'),
+('CF', 'XAF'),
+('TD', 'XAF'),
+('CL', 'CLP'),
+('CN', 'CNY'),
+('CX', 'AUD'),
+('CC', 'AUD'),
+('CO', 'COP'),
+('KM', 'KMF'),
+('CK', 'NZD'),
+('CR', 'CRC'),
+('HR', 'HRK'),
+('CU', 'CUP'),
+('CY', 'CYP'),
+('CZ', 'CZK'),
+('CD', 'CDF'),
+('DK', 'DKK'),
+('DJ', 'DJF'),
+('DM', 'XCD'),
+('DO', 'DOP'),
+('TL', 'USD'),
+('EC', 'USD'),
+('EG', 'EGP'),
+('SV', 'SVC'),
+('GQ', 'XAF'),
+('ER', 'ERN'),
+('EE', 'EEK'),
+('ET', 'ETB'),
+('FK', 'FKP'),
+('FO', 'DKK'),
+('FJ', 'FJD'),
+('FI', 'EUR'),
+('FR', 'EUR'),
+('GF', 'EUR'),
+('PF', 'XPF'),
+('TF', 'EUR'),
+('GA', 'XAF'),
+('GM', 'GMD'),
+('GE', 'GEL'),
+('DE', 'EUR'),
+('GH', 'GHC'),
+('GI', 'GIP'),
+('GR', 'EUR'),
+('GL', 'DKK'),
+('GD', 'XCD'),
+('GP', 'EUR'),
+('GU', 'USD'),
+('GT', 'GTQ'),
+('GN', 'GNF'),
+('GW', 'XOF'),
+('GY', 'GYD'),
+('HT', 'HTG'),
+('HM', 'AUD'),
+('HN', 'HNL'),
+('HK', 'HKD'),
+('HU', 'HUF'),
+('IS', 'ISK'),
+('IN', 'INR'),
+('ID', 'IDR'),
+('IR', 'IRR'),
+('IQ', 'IQD'),
+('IE', 'EUR'),
+('IL', 'ILS'),
+('IT', 'EUR'),
+('CI', 'XOF'),
+('JM', 'JMD'),
+('JP', 'JPY'),
+('JO', 'JOD'),
+('KZ', 'KZT'),
+('KE', 'KES'),
+('KI', 'AUD'),
+('KW', 'KWD'),
+('KG', 'KGS'),
+('LA', 'LAK'),
+('LV', 'LVL'),
+('LB', 'LBP'),
+('LS', 'LSL'),
+('LR', 'LRD'),
+('LY', 'LYD'),
+('LI', 'CHF'),
+('LT', 'LTL'),
+('LU', 'EUR'),
+('MO', 'MOP'),
+('MK', 'MKD'),
+('MG', 'MGA'),
+('MW', 'MWK'),
+('MY', 'MYR'),
+('MV', 'MVR'),
+('ML', 'XOF'),
+('MT', 'MTL'),
+('MH', 'USD'),
+('MQ', 'EUR'),
+('MR', 'MRO'),
+('MU', 'MUR'),
+('YT', 'EUR'),
+('MX', 'MXN'),
+('FM', 'USD'),
+('MD', 'MDL'),
+('MC', 'EUR'),
+('MN', 'MNT'),
+('MS', 'XCD'),
+('MA', 'MAD'),
+('MZ', 'MZN'),
+('MM', 'MMK'),
+('NA', 'NAD'),
+('NR', 'AUD'),
+('NP', 'NPR'),
+('NL', 'EUR'),
+('AN', 'ANG'),
+('NC', 'XPF'),
+('NZ', 'NZD'),
+('NI', 'NIO'),
+('NE', 'XOF'),
+('NG', 'NGN'),
+('NU', 'NZD'),
+('NF', 'AUD'),
+('KP', 'KPW'),
+('MP', 'USD'),
+('NO', 'NOK'),
+('OM', 'OMR'),
+('PK', 'PKR'),
+('PW', 'USD'),
+('PS', 'ILS'),
+('PA', 'PAB'),
+('PG', 'PGK'),
+('PY', 'PYG'),
+('PE', 'PEN'),
+('PH', 'PHP'),
+('PN', 'NZD'),
+('PL', 'PLN'),
+('PT', 'EUR'),
+('PR', 'USD'),
+('QA', 'QAR'),
+('CG', 'XAF'),
+('RE', 'EUR'),
+('RO', 'RON'),
+('RU', 'RUB'),
+('RW', 'RWF'),
+('SH', 'SHP'),
+('KN', 'XCD'),
+('LC', 'XCD'),
+('PM', 'EUR'),
+('VC', 'XCD'),
+('WS', 'WST'),
+('SM', 'EUR'),
+('ST', 'STD'),
+('SA', 'SAR'),
+('SN', 'XOF'),
+('CS', 'RSD'),
+('SC', 'SCR'),
+('SL', 'SLL'),
+('SG', 'SGD'),
+('SK', 'SKK'),
+('SI', 'EUR'),
+('SB', 'SLB'),
+('SO', 'SOS'),
+('ZA', 'ZAR'),
+('GS', 'GBP'),
+('KR', 'KRW'),
+('ES', 'EUR'),
+('LK', 'LKR'),
+('SD', 'SDD'),
+('SR', 'SRD'),
+('SJ', 'NOK'),
+('SZ', 'SZL'),
+('SE', 'SEK'),
+('CH', 'CHF'),
+('SY', 'SYP'),
+('TW', 'TWD'),
+('TJ', 'TJS'),
+('TZ', 'TZS'),
+('TH', 'THB'),
+('TG', 'XOF'),
+('TK', 'NZD'),
+('TO', 'TOP'),
+('TT', 'TTD'),
+('TN', 'TND'),
+('TR', 'TRY'),
+('TM', 'TMM'),
+('TC', 'USD'),
+('TV', 'AUD'),
+('VI', 'USD'),
+('UG', 'UGX'),
+('UA', 'UAH'),
+('AE', 'AED'),
+('GB', 'GBP'),
+('US', 'USD'),
+('UM', 'USD'),
+('UY', 'UYU'),
+('UZ', 'UZS'),
+('VU', 'VUV'),
+('VA', 'EUR'),
+('VE', 'VEF'),
+('VN', 'VND'),
+('WF', 'XPF'),
+('EH', 'MAD'),
+('YE', 'YER'),
+('ZM', 'ZMK'),
+('ZW', 'ZWD');
+
+
+
+INSERT INTO `countries` (`id_countries`, `name`, `iso_alpha2`, `iso_alpha3`, `iso_numeric`, `currency_code`, `currency_name`, `currrency_symbol`, `flag`) VALUES
+('AFN', 'Afghani', '؋', 'AF.png'),
+('ALL', 'Lek', 'Lek', 'AL.png'),
+('DZD', 'Dinar', NULL, 'DZ.png'),
+('USD', 'Dollar', '$', 'AS.png'),
+('EUR', 'Euro', '€', 'AD.png'),
+('AOA', 'Kwanza', 'Kz', 'AO.png'),
+('XCD', 'Dollar', '$', 'AI.png'),
+('XCD', 'Dollar', '$', 'AG.png'),
+('ARS', 'Peso', '$', 'AR.png'),
+('AMD', 'Dram', NULL, 'AM.png'),
+('AWG', 'Guilder', 'ƒ', 'AW.png'),
+('AUD', 'Dollar', '$', 'AU.png'),
+('AZN', 'Manat', 'ман', 'AZ.png'),
+('BSD', 'Dollar', '$', 'BS.png'),
+('BHD', 'Dinar', NULL, 'BH.png'),
+('BDT', 'Taka', NULL, 'BD.png'),
+('BBD', 'Dollar', '$', 'BB.png'),
+('BYR', 'Ruble', 'p.', 'BY.png'),
+('BZD', 'Dollar', 'BZ$', 'BZ.png'),
+('XOF', 'Franc', NULL, 'BJ.png'),
+('BMD', 'Dollar', '$', 'BM.png'),
+('BTN', 'Ngultrum', NULL, 'BT.png'),
+('BOB', 'Boliviano', '$b', 'BO.png'),
+('BAM', 'Marka', 'KM', 'BA.png'),
+('BWP', 'Pula', 'P', 'BW.png'),
+('NOK', 'Krone', 'kr', 'BV.png'),
+('BRL', 'Real', 'R$', 'BR.png'),
+('BND', 'Dollar', '$', 'BN.png'),
+('BGN', 'Lev', 'лв', 'BG.png'),
+('XOF', 'Franc', NULL, 'BF.png'),
+('BIF', 'Franc', NULL, 'BI.png'),
+('KHR', 'Riels', '៛', 'KH.png'),
+('XAF', 'Franc', 'FCF', 'CM.png'),
+('CAD', 'Dollar', '$', 'CA.png'),
+('CVE', 'Escudo', NULL, 'CV.png'),
+('KYD', 'Dollar', '$', 'KY.png'),
+('XAF', 'Franc', 'FCF', 'CF.png'),
+('XAF', 'Franc', NULL, 'TD.png'),
+('CLP', 'Peso', NULL, 'CL.png'),
+('CNY', 'Yuan Renminbi', '¥', 'CN.png'),
+('AUD', 'Dollar', '$', 'CX.png'),
+('COP', 'Peso', '$', 'CO.png'),
+('KMF', 'Franc', NULL, 'KM.png'),
+('NZD', 'Dollar', '$', 'CK.png'),
+('CRC', 'Colon', '₡', 'CR.png'),
+('HRK', 'Kuna', 'kn', 'HR.png'),
+('CUP', 'Peso', '₱', 'CU.png'),
+('CYP', 'Pound', NULL, 'CY.png'),
+('CZK', 'Koruna', 'Kč', 'CZ.png'),
+('CDF', 'Franc', NULL, 'CD.png'),
+('DKK', 'Krone', 'kr', 'DK.png'),
+('DJF', 'Franc', NULL, 'DJ.png'),
+('XCD', 'Dollar', '$', 'DM.png'),
+('DOP', 'Peso', 'RD$', 'DO.png'),
+('EGP', 'Pound', '£', 'EG.png'),
+('SVC', 'Colone', '$', 'SV.png'),
+('XAF', 'Franc', 'FCF', 'GQ.png'),
+('ERN', 'Nakfa', 'Nfk', 'ER.png'),
+('EEK', 'Kroon', 'kr', 'EE.png'),
+('ETB', 'Birr', NULL, 'ET.png'),
+('FKP', 'Pound', '£', 'FK.png'),
+('DKK', 'Krone', 'kr', 'FO.png'),
+('FJD', 'Dollar', '$', 'FJ.png'),
+('XPF', 'Franc', NULL, 'PF.png'),
+('XAF', 'Franc', 'FCF', 'GA.png'),
+('GMD', 'Dalasi', 'D', 'GM.png'),
+('GEL', 'Lari', NULL, 'GE.png'),
+('GHC', 'Cedi', '¢', 'GH.png'),
+('GIP', 'Pound', '£', 'GI.png'),
+('DKK', 'Krone', 'kr', 'GL.png'),
+('XCD', 'Dollar', '$', 'GD.png'),
+('GTQ', 'Quetzal', 'Q', 'GT.png'),
+('GNF', 'Franc', NULL, 'GN.png'),
+('XOF', 'Franc', NULL, 'GW.png'),
+('GYD', 'Dollar', '$', 'GY.png'),
+('HTG', 'Gourde', 'G', 'HT.png'),
+('AUD', 'Dollar', '$', 'HM.png'),
+('HNL', 'Lempira', 'L', 'HN.png'),
+('HKD', 'Dollar', '$', 'HK.png'),
+('HUF', 'Forint', 'Ft', 'HU.png'),
+('ISK', 'Krona', 'kr', 'IS.png'),
+('INR', 'Rupee', '₹', 'IN.png'),
+('IDR', 'Rupiah', 'Rp', 'ID.png'),
+('IRR', 'Rial', '﷼', 'IR.png'),
+('IQD', 'Dinar', NULL, 'IQ.png'),
+('ILS', 'Shekel', '₪', 'IL.png'),
+('XOF', 'Franc', NULL, 'CI.png'),
+('JMD', 'Dollar', '$', 'JM.png'),
+('JPY', 'Yen', '¥', 'JP.png'),
+('JOD', 'Dinar', NULL, 'JO.png'),
+('KZT', 'Tenge', 'лв', 'KZ.png'),
+('KES', 'Shilling', NULL, 'KE.png'),
+('AUD', 'Dollar', '$', 'KI.png'),
+('KWD', 'Dinar', NULL, 'KW.png'),
+('KGS', 'Som', 'лв', 'KG.png'),
+('LAK', 'Kip', '₭', 'LA.png'),
+('LVL', 'Lat', 'Ls', 'LV.png'),
+('LBP', 'Pound', '£', 'LB.png'),
+('LSL', 'Loti', 'L', 'LS.png'),
+('LRD', 'Dollar', '$', 'LR.png'),
+('LYD', 'Dinar', NULL, 'LY.png'),
+('CHF', 'Franc', 'CHF', 'LI.png'),
+('LTL', 'Litas', 'Lt', 'LT.png'),
+('MOP', 'Pataca', 'MOP', 'MO.png'),
+('MKD', 'Denar', 'ден', 'MK.png'),
+('MGA', 'Ariary', NULL, 'MG.png'),
+('MWK', 'Kwacha', 'MK', 'MW.png'),
+('MYR', 'Ringgit', 'RM', 'MY.png'),
+('MVR', 'Rufiyaa', 'Rf', 'MV.png'),
+('XOF', 'Franc', NULL, 'ML.png'),
+('MTL', 'Lira', NULL, 'MT.png'),
+('MRO', 'Ouguiya', 'UM', 'MR.png'),
+('MUR', 'Rupee', '₨', 'MU.png'),
+('MXN', 'Peso', '$', 'MX.png'),
+('MDL', 'Leu', NULL, 'MD.png'),
+('MNT', 'Tugrik', '₮', 'MN.png'),
+('XCD', 'Dollar', '$', 'MS.png'),
+('MAD', 'Dirham', NULL, 'MA.png'),
+('MZN', 'Meticail', 'MT', 'MZ.png'),
+('MMK', 'Kyat', 'K', 'MM.png'),
+('NAD', 'Dollar', '$', 'NA.png'),
+('AUD', 'Dollar', '$', 'NR.png'),
+('NPR', 'Rupee', '₨', 'NP.png'),
+('ANG', 'Guilder', 'ƒ', 'AN.png'),
+('XPF', 'Franc', NULL, 'NC.png'),
+('NZD', 'Dollar', '$', 'NZ.png'),
+('NIO', 'Cordoba', 'C$', 'NI.png'),
+('XOF', 'Franc', NULL, 'NE.png'),
+('NGN', 'Naira', '₦', 'NG.png'),
+('NZD', 'Dollar', '$', 'NU.png'),
+('AUD', 'Dollar', '$', 'NF.png'),
+('KPW', 'Won', '₩', 'KP.png'),
+('NOK', 'Krone', 'kr', 'NO.png'),
+('OMR', 'Rial', '﷼', 'OM.png'),
+('PKR', 'Rupee', '₨', 'PK.png'),
+('ILS', 'Shekel', '₪', 'PS.png'),
+('PAB', 'Balboa', 'B/.', 'PA.png'),
+('PGK', 'Kina', NULL, 'PG.png'),
+('PYG', 'Guarani', 'Gs', 'PY.png'),
+('PEN', 'Sol', 'S/.', 'PE.png'),
+('PHP', 'Peso', 'Php', 'PH.png'),
+('NZD', 'Dollar', '$', 'PN.png'),
+('PLN', 'Zloty', 'zł', 'PL.png'),
+('QAR', 'Rial', '﷼', 'QA.png'),
+('XAF', 'Franc', 'FCF', 'CG.png'),
+('RON', 'Leu', 'lei', 'RO.png'),
+('RUB', 'Ruble', 'руб', 'RU.png'),
+('RWF', 'Franc', NULL, 'RW.png'),
+('SHP', 'Pound', '£', 'SH.png'),
+('XCD', 'Dollar', '$', 'KN.png'),
+('XCD', 'Dollar', '$', 'LC.png'),
+('XCD', 'Dollar', '$', 'VC.png'),
+('WST', 'Tala', 'WS$', 'WS.png'),
+('STD', 'Dobra', 'Db', 'ST.png'),
+('SAR', 'Rial', '﷼', 'SA.png'),
+('XOF', 'Franc', NULL, 'SN.png'),
+('RSD', 'Dinar', 'Дин', 'CS.png'),
+('SCR', 'Rupee', '₨', 'SC.png'),
+('SLL', 'Leone', 'Le', 'SL.png'),
+('SGD', 'Dollar', '$', 'SG.png'),
+('SKK', 'Koruna', 'Sk', 'SK.png'),
+('SBD', 'Dollar', '$', 'SB.png'),
+('SOS', 'Shilling', 'S', 'SO.png'),
+('ZAR', 'Rand', 'R', 'ZA.png'),
+('GBP', 'Pound', '£', 'GS.png'),
+('KRW', 'Won', '₩', 'KR.png'),
+('LKR', 'Rupee', '₨', 'LK.png'),
+('SDD', 'Dinar', NULL, 'SD.png'),
+('SRD', 'Dollar', '$', 'SR.png'),
+('NOK', 'Krone', 'kr', 'SJ.png'),
+('SZL', 'Lilangeni', NULL, 'SZ.png'),
+('SEK', 'Krona', 'kr', 'SE.png'),
+('CHF', 'Franc', 'CHF', 'CH.png'),
+('SYP', 'Pound', '£', 'SY.png'),
+('TWD', 'Dollar', 'NT$', 'TW.png'),
+('TJS', 'Somoni', NULL, 'TJ.png'),
+('TZS', 'Shilling', NULL, 'TZ.png'),
+('THB', 'Baht', '฿', 'TH.png'),
+('XOF', 'Franc', NULL, 'TG.png'),
+('NZD', 'Dollar', '$', 'TK.png'),
+('TOP', 'Pa''anga', 'T$', 'TO.png'),
+('TTD', 'Dollar', 'TT$', 'TT.png'),
+('TND', 'Dinar', NULL, 'TN.png'),
+('TRY', 'Lira', 'YTL', 'TR.png'),
+('TMM', 'Manat', 'm', 'TM.png'),
+('AUD', 'Dollar', '$', 'TV.png'),
+('UGX', 'Shilling', NULL, 'UG.png'),
+('UAH', 'Hryvnia', '₴', 'UA.png'),
+('AED', 'Dirham', NULL, 'AE.png'),
+('GBP', 'Pound', '£', 'GB.png'),
+('UYU', 'Peso', '$U', 'UY.png'),
+('UZS', 'Som', 'лв', 'UZ.png'),
+('VUV', 'Vatu', 'Vt', 'VU.png'),
+('VEF', 'Bolivar', 'Bs', 'VE.png'),
+('VND', 'Dong', '₫', 'VN.png'),
+('XPF', 'Franc', NULL, 'WF.png'),
+('MAD', 'Dirham', NULL, 'EH.png'),
+('YER', 'Rial', '﷼', 'YE.png'),
+('ZMK', 'Kwacha', 'ZK', 'ZM.png'),
+('ZWD', 'Dollar', 'Z$', 'ZW.png');

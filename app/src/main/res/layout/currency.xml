@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout android:layout_width="fill_parent" android:layout_height="fill_parent"
+  xmlns:android="http://schemas.android.com/apk/res/android">
+    <EditText android:id="@id/txtTo" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginTop="57.0dip" android:ems="10" android:layout_below="@id/txtFrom" android:layout_centerHorizontal="true" android:inputType="numberDecimal" />
+    <EditText android:id="@id/txtFrom" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginTop="72.0dip" android:ems="10" android:layout_alignLeft="@id/txtTo" android:layout_alignParentTop="true" android:inputType="numberDecimal" />
+    <TextView android:textAppearance="?android:textAppearanceLarge" android:id="@id/lblFrom" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginTop="23.0dip" android:text="Zl" android:layout_alignLeft="@id/txtFrom" android:layout_alignParentTop="true" />
+    <TextView android:textAppearance="?android:textAppearanceLarge"
+        android:id="@id/lblTo"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20.0dip"
+        android:text="UAH"
+        android:layout_below="@id/txtFrom"
+        android:layout_alignLeft="@id/txtTo" />
+    <TextView android:textAppearance="?android:textAppearanceMedium" android:id="@id/lblRate" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginRight="14.0dip" android:text="Loading..." android:layout_alignParentTop="true" android:layout_alignParentRight="true" />
+</RelativeLayout>

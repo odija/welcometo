@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="main_menu">
+        <item>Info</item>
+        <item>Currency converter</item>
+        <item>Translator</item>
+        <item>Emergency Call</item>
+        <item>Settings</item>
+    </string-array>
+    <string-array name="countries">
+        <item>Poland</item>
+        <item>United States</item>
+        <item>United Kingdom</item>
+        <item>Ukraine</item>
+    </string-array>
+</resources>

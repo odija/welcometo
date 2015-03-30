@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <item type="id" name="TextView01"/>
+    <item type="id" name="textViewItem"/>
+    <item type="id" name="txtTo"/>
+    <item type="id" name="txtFrom"/>
+    <item type="id" name="lblFrom"/>
+    <item type="id" name="lblTo"/>
+    <item type="id" name="lblHi"/>
+    <item type="id" name="lblRate"/>
+    <item type="id" name="btnEmergency"/>
+    <item type="id" name="webBrowser"/>
+    <item type="id" name="countryList"/>
+    <item type="id" name="drawer_layout"/>
+    <item type="id" name="content_frame"/>
+    <item type="id" name="left_drawer"/>
+    <item type="id" name="lblHRU"/>
+    <item type="id" name="lblThanks"/>
+    <item type="id" name="textView6"/>
+    <item type="id" name="btnHowAreYou"/>
+    <item type="id" name="btnHi"/>
+    <item type="id" name="btnThanks"/>
+    <item type="id" name="action_settings"/>
+</resources>

@@ -88,8 +88,11 @@ public class CurrencyFragment extends Fragment {
     protected String doInBackground(Void... paramVarArgs) {
       DefaultHttpClient localDefaultHttpClient = new DefaultHttpClient();
       try {
-        HttpResponse localHttpResponse = localDefaultHttpClient.execute(new HttpGet("http://rate-exchange.appspot.com/currency?from=" + this.mFromCurrency + "&to=" + this.mToCurrency));
-        StatusLine localStatusLine = localHttpResponse.getStatusLine();
+        //HttpResponse localHttpResponse = localDefaultHttpClient.execute(new HttpGet("http://rate-exchange.appspot.com/currency?from=" + this.mFromCurrency + "&to=" + this.mToCurrency));
+
+          HttpResponse localHttpResponse = localDefaultHttpClient.execute(new HttpGet("http://www.freecurrencyconverterapi.com/api/v3/convert?q=" + this.mFromCurrency + "_" + this.mToCurrency + "&compact=y"));
+          StatusLine localStatusLine = localHttpResponse.getStatusLine();
+
         if (localStatusLine.getStatusCode() == 200) {
           ByteArrayOutputStream localByteArrayOutputStream = new ByteArrayOutputStream();
           localHttpResponse.getEntity().writeTo(localByteArrayOutputStream);
@@ -110,7 +113,8 @@ public class CurrencyFragment extends Fragment {
     protected void onPostExecute(String paramString) {
       Log.d("", paramString);
       try {
-        CurrencyFragment.this.mCurrencyRate = new JSONObject(paramString).getDouble("rate");
+        //CurrencyFragment.this.mCurrencyRate = new JSONObject(paramString).getDouble("rate");
+          CurrencyFragment.this.mCurrencyRate = new JSONObject(paramString).getJSONObject("UAH_UAH").getDouble("val");
         CurrencyFragment.this.mCurrencyRate = CurrencyFragment.round(CurrencyFragment.this.mCurrencyRate, 3, 4);
         CurrencyFragment.this.showRateLabel(this.mFromCurrency, this.mToCurrency, CurrencyFragment.this.mCurrencyRate);
         SharedPreferencesHelper.getInstance(CurrencyFragment.this.getActivity()).putString(this.mToCurrency, String.valueOf(CurrencyFragment.this.mCurrencyRate));

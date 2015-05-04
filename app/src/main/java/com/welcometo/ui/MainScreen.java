@@ -1,45 +1,35 @@
 package com.welcometo.ui;
 
-import android.app.ActionBar;
+
 import android.app.Activity;
 import android.app.Fragment;
-import android.app.FragmentManager;
-import android.app.FragmentTransaction;
-import android.content.Context;
-import android.content.Intent;
-import android.content.res.Resources;
 import android.database.SQLException;
-import android.location.Address;
-import android.location.Geocoder;
 import android.location.LocationManager;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.v4.widget.DrawerLayout;
 import android.telephony.TelephonyManager;
-import android.view.LayoutInflater;
+import android.util.Log;
 import android.view.View;
-import android.view.View.OnClickListener;
-import android.view.ViewGroup;
-import android.view.inputmethod.InputMethodManager;
+import android.view.Window;
 import android.widget.AdapterView;
-import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ArrayAdapter;
-import android.widget.Button;
-import android.widget.ListAdapter;
 import android.widget.ListView;
 
 import com.welcometo.R;
+import com.welcometo.helpers.Constants;
 import com.welcometo.helpers.Country;
 import com.welcometo.helpers.CountryHelper;
 import com.welcometo.helpers.DataBaseHelper;
-import java.io.IOException;
-import java.util.List;
-import java.util.Locale;
+import com.welcometo.helpers.SettingsFragment;
 
-public class MainScreen extends Activity {
+public class MainScreen extends Activity implements SettingsFragment.OnFragmentInteractionListener{
 	
   public static String countryCode;
+
+  private static String TAG = "welcometo";
+
   private Country mCountry;
   private DataBaseHelper mDBHelper;
   private DrawerLayout mDrawerLayout;
@@ -70,17 +60,29 @@ public class MainScreen extends Activity {
   
   protected void onCreate(Bundle paramBundle) {
     super.onCreate(paramBundle);
-    requestWindowFeature(5);
+
+    requestWindowFeature(Window.FEATURE_INDETERMINATE_PROGRESS);
+
     setContentView(R.layout.main_screen);
+
     this.mDrawerList = ((ListView)findViewById(R.id.left_drawer));
     this.mMenuItems = getResources().getStringArray(R.array.main_menu);
     this.mDrawerLayout = ((DrawerLayout)findViewById(R.id.drawer_layout));
     this.mDrawerList.setAdapter(new ArrayAdapter(this, R.layout.main_menu_item, this.mMenuItems));
+
     setProgressBarIndeterminateVisibility(true);
+
     this.mDrawerList.setOnItemClickListener(new DrawerItemClickListener());
-    countryCode = ((TelephonyManager)getSystemService("phone")).getNetworkCountryIso().toUpperCase();
+
+    // connect to local database
     this.mDBHelper = connectToDB();
+
+    // calc current country code
+    countryCode = ((TelephonyManager)getSystemService("phone")).getNetworkCountryIso().toUpperCase();
+
     this.mCountry = this.mDBHelper.getCountryByCode(countryCode);
+
+    // open sidebar menu
     if (this.mCountry != null) {
       new Handler().postDelayed(openDrawerRunnable(), 1000L);
     }
@@ -93,7 +95,12 @@ public class MainScreen extends Activity {
     }
     return "112";
   }
-  
+
+  @Override
+  public void onFragmentInteraction(Uri uri) {
+    Log.d(TAG, uri.toString() + " wants to interact");
+  }
+
   private Runnable openDrawerRunnable()
   {
     return new Runnable()
@@ -126,51 +133,51 @@ public class MainScreen extends Activity {
 	    case 3:
 	    	showEmergencyButtonFragment();
 	    	break;
+
+        case 4:
+            showSettingsFragment();
+            break;
     }
 
     this.mDrawerList.setItemChecked(paramInt, true);
+
     getActionBar().setSubtitle(this.mMenuItems[paramInt]);
+
     this.mDrawerLayout.closeDrawer(this.mDrawerList);
   }
   
   private void showCurrencyFragment() {
-    InputMethodManager localInputMethodManager = (InputMethodManager)getSystemService("input_method");
-    if (localInputMethodManager != null) {
+    //InputMethodManager localInputMethodManager = (InputMethodManager)getSystemService("input_method");
+    //if (localInputMethodManager != null) {
       //localInputMethodManager.toggleSoftInput(2, 0);
+    //}
+
+    Bundle paramBundle = new Bundle();
+
+    // get current currency
+    String currentCurrency = this.mDBHelper.getCurrencyByCountry(this.mCountry.getCode());
+    if (currentCurrency != null) {
+      paramBundle.putString(CurrencyFragment.PARAM_CURRENT_CURRENCY, currentCurrency);
     }
-    Bundle localBundle = new Bundle();
-    String str1 = this.mDBHelper.getCurrencyByCountry(this.mCountry.getCode());
-    if (str1 != null) {
-      localBundle.putString("currency", str1);
+
+    // get native currency
+    String ownCountryCode = CountryHelper.getSavedNativeCountry(this);
+    String ownCurrency = this.mDBHelper.getCurrencyByCountry(ownCountryCode);
+    if (ownCurrency != null) {
+      paramBundle.putString(CurrencyFragment.PARAM_NATIVE_CURRENCY, ownCurrency);
     }
-    String str2 = CountryHelper.getSavedNativeCountry(this);
-    String str3 = this.mDBHelper.getCurrencyByCountry(str2);
-    if (str3 != null) {
-      localBundle.putString("ncurrency", str3);
-    }
-    showFragment(new CurrencyFragment(), localBundle);
+
+    showFragment(new CurrencyFragment(), paramBundle);
   }
   
-  private void showEmergencyButtonFragment()
-  {
+  private void showEmergencyButtonFragment()  {
     showFragment(new EmergencyButtonFragment());
   }
-  
-  private void showFragment(Fragment paramFragment)
-  {
-    showFragment(paramFragment, null);
+
+  private void showSettingsFragment() {
+    showFragment(new SettingsFragment());
   }
-  
-  private void showFragment(Fragment paramFragment, Bundle paramBundle) {
-    if (paramBundle == null) {
-    	paramBundle = new Bundle();
-    }
-    
-    paramBundle.putParcelable("dc", this.mCountry);
-    paramFragment.setArguments(paramBundle);
-    getFragmentManager().beginTransaction().replace(R.id.content_frame, paramFragment).commit();
-  }
-  
+
   private void showInfoFragment() {
     showFragment(new InfoFragment());
   }
@@ -178,7 +185,21 @@ public class MainScreen extends Activity {
   private void showTranslatorFragment() {
     showFragment(new TranslatorFragment());
   }
-  
+
+  private void showFragment(Fragment paramFragment)  {
+    showFragment(paramFragment, null);
+  }
+
+  private void showFragment(Fragment paramFragment, Bundle paramBundle) {
+    if (paramBundle == null) {
+      paramBundle = new Bundle();
+    }
+
+    paramBundle.putParcelable(Constants.PARAM_COUNTRY, this.mCountry);
+    paramFragment.setArguments(paramBundle);
+    getFragmentManager().beginTransaction().replace(R.id.content_frame, paramFragment).commit();
+  }
+
   private class DrawerItemClickListener implements ListView.OnItemClickListener {
 	
 	  @Override
@@ -197,30 +218,6 @@ public class MainScreen extends Activity {
     catch (SQLException localSQLException)
     {
       throw localSQLException;
-    }
-  }
-  
-  public static class EmergencyButtonFragment extends Fragment
-  {
-    
-    void makeEmergencyCall()
-    {
-      Intent localIntent = new Intent("android.intent.action.CALL", Uri.parse("tel://" + MainScreen.getEmergencyNumberByCountryCode(MainScreen.countryCode)));
-      localIntent.setFlags(268697600);
-      startActivity(localIntent);
-    }
-    
-    public View onCreateView(LayoutInflater paramLayoutInflater, ViewGroup paramViewGroup, Bundle paramBundle)
-    {
-      View localView = paramLayoutInflater.inflate(2130903043, paramViewGroup, false);
-      ((Button)localView.findViewById(2131296263)).setOnClickListener(new View.OnClickListener()
-      {
-        public void onClick(View paramAnonymousView)
-        {
-          MainScreen.EmergencyButtonFragment.this.makeEmergencyCall();
-        }
-      });
-      return localView;
     }
   }
 }

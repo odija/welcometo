@@ -6,4 +6,8 @@
     <string name="hi">Hi</string>
     <string name="hru">How are you doing?</string>
     <string name="thanks">Thank you</string>
+    <string name="where_are_you_from">Where are you from?</string>
+
+<!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>

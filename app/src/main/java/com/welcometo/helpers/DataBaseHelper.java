@@ -14,9 +14,7 @@ import java.io.InputStream;
 import java.io.OutputStream;
 import java.util.ArrayList;
 
-public class DataBaseHelper
-  extends SQLiteOpenHelper
-{
+public class DataBaseHelper extends SQLiteOpenHelper {
   private static String DB_NAME = "welcometo";
   private static String DB_PATH = "/data/data/com.welcometo/databases/";
   private static String TABLE_COUNTRY = "country";
@@ -24,16 +22,13 @@ public class DataBaseHelper
   private final Context myContext;
   private SQLiteDatabase myDataBase;
   
-  public DataBaseHelper(Context paramContext)
-  {
+  public DataBaseHelper(Context paramContext) {
     super(paramContext, DB_NAME, null, 1);
     this.myContext = paramContext;
   }
   
-  private boolean checkDataBase()
-  {
-    try
-    {
+  private boolean checkDataBase() {
+    try {
       SQLiteDatabase localSQLiteDatabase2 = SQLiteDatabase.openDatabase(DB_PATH + DB_NAME, null, 1);
       myDataBase = localSQLiteDatabase2;
     }
@@ -46,9 +41,7 @@ public class DataBaseHelper
     return myDataBase != null;
   }
   
-  private void copyDataBase()
-    throws IOException
-  {
+  private void copyDataBase() throws IOException {
     InputStream localInputStream = this.myContext.getAssets().open(DB_NAME);
     FileOutputStream localFileOutputStream = new FileOutputStream(DB_PATH + DB_NAME);
     byte[] arrayOfByte = new byte[1024];

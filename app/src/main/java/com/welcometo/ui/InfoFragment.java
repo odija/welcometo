@@ -8,16 +8,21 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
+
+import com.welcometo.R;
+import com.welcometo.helpers.Constants;
 import com.welcometo.helpers.Country;
 
-public class InfoFragment
-  extends Fragment
+public class InfoFragment extends Fragment
 {
-  public View onCreateView(LayoutInflater paramLayoutInflater, ViewGroup paramViewGroup, Bundle paramBundle)
-  {
-    View localView = paramLayoutInflater.inflate(2130903044, paramViewGroup, false);
-    WebView localWebView = (WebView)localView.findViewById(2131296264);
+  public View onCreateView(LayoutInflater paramLayoutInflater, ViewGroup paramViewGroup, Bundle paramBundle) {
+
+    View localView = paramLayoutInflater.inflate(R.layout.info, paramViewGroup, false);
+    WebView localWebView = (WebView)localView.findViewById(R.id.webBrowser);
+
     getActivity().setProgressBarIndeterminateVisibility(true);
+
+    // init web client
     localWebView.setWebViewClient(new WebViewClient()
     {
       public void onPageFinished(WebView paramAnonymousWebView, String paramAnonymousString)
@@ -25,10 +30,11 @@ public class InfoFragment
         InfoFragment.this.getActivity().setProgressBarIndeterminateVisibility(false);
       }
     });
+
+    //
     Bundle localBundle = getArguments();
-    if (localBundle != null)
-    {
-      Country localCountry = (Country)localBundle.getParcelable("dc");
+    if (localBundle != null) {
+      Country localCountry = (Country)localBundle.getParcelable(Constants.PARAM_COUNTRY);
       if (localCountry != null) {
         localWebView.loadUrl("http://en.m.wikipedia.org/wiki/" + localCountry.getName());
       }
@@ -36,9 +42,3 @@ public class InfoFragment
     return localView;
   }
 }
-
-
-/* Location:           D:\projects\decompilation\dex2jar-0.0.9.15\WelcomeTo_dex2jar.jar
- * Qualified Name:     com.welcometo.ui.InfoFragment
- * JD-Core Version:    0.7.0.1
- */

@@ -1465,10 +1465,12 @@ containing a value of this type.
         public static final int abc_toolbar_collapse_description=0x7f060014;
         public static final int action_settings=0x7f060015;
         public static final int app_name=0x7f060000;
+        public static final int hello_blank_fragment=0x7f060016;
         public static final int hello_world=0x7f060002;
         public static final int hi=0x7f060003;
         public static final int hru=0x7f060004;
         public static final int thanks=0x7f060005;
+        public static final int where_are_you_from=0x7f060017;
     }
     public static final class style {
         public static final int Animation_AppCompat_DropDownUp=0x7f070002;

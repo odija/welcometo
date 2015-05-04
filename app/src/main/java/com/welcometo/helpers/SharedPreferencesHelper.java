@@ -140,9 +140,3 @@ public class SharedPreferencesHelper
     this.context = paramContext;
   }
 }
-
-
-/* Location:           D:\projects\decompilation\dex2jar-0.0.9.15\WelcomeTo_dex2jar.jar
- * Qualified Name:     com.welcometo.helpers.SharedPreferencesHelper
- * JD-Core Version:    0.7.0.1
- */

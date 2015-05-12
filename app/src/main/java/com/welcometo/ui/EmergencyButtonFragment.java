@@ -13,6 +13,7 @@ import android.widget.Button;
 import com.welcometo.R;
 
 public class EmergencyButtonFragment extends Fragment {
+
   void makeEmergencyCall() {
     Intent localIntent = new Intent("android.intent.action.CALL", Uri.parse("tel://" + MainScreen.getEmergencyNumberByCountryCode(MainScreen.countryCode)));
     localIntent.setFlags(268697600);
@@ -22,7 +23,7 @@ public class EmergencyButtonFragment extends Fragment {
   public View onCreateView(LayoutInflater paramLayoutInflater, ViewGroup paramViewGroup, Bundle paramBundle) {
     View localView = paramLayoutInflater.inflate(R.layout.emergency_button, paramViewGroup, false);
 
-    ((Button)localView.findViewById(R.id.btnEmergency)).setOnClickListener(new View.OnClickListener()
+    (localView.findViewById(R.id.btnEmergency)).setOnClickListener(new View.OnClickListener()
     {
       public void onClick(View paramAnonymousView)
       {

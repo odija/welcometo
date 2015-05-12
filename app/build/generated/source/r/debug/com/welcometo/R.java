@@ -1440,7 +1440,8 @@ containing a value of this type.
         public static final int init_screen=0x7f03001e;
         public static final int main_menu_item=0x7f030006;
         public static final int main_screen=0x7f030007;
-        public static final int support_simple_spinner_dropdown_item=0x7f03001f;
+        public static final int settings=0x7f03001f;
+        public static final int support_simple_spinner_dropdown_item=0x7f030020;
         public static final int translator=0x7f030008;
     }
     public static final class menu {
@@ -1470,7 +1471,8 @@ containing a value of this type.
         public static final int hi=0x7f060003;
         public static final int hru=0x7f060004;
         public static final int thanks=0x7f060005;
-        public static final int where_are_you_from=0x7f060017;
+        public static final int what_is_your_dest=0x7f060017;
+        public static final int where_are_you_from=0x7f060018;
     }
     public static final class style {
         public static final int Animation_AppCompat_DropDownUp=0x7f070002;

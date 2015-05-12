@@ -22,14 +22,14 @@ import com.welcometo.helpers.Constants;
 import com.welcometo.helpers.Country;
 import com.welcometo.helpers.CountryHelper;
 import com.welcometo.helpers.DataBaseHelper;
-import com.welcometo.helpers.SettingsFragment;
 
-public class MainScreen extends Activity implements SettingsFragment.OnFragmentInteractionListener{
+public class MainScreen extends Activity implements SettingsFragment.OnSettingsListener {
 	
   public static String countryCode;
 
   private static String TAG = "welcometo";
 
+  // current country
   private Country mCountry;
   private DataBaseHelper mDBHelper;
   private DrawerLayout mDrawerLayout;
@@ -88,8 +88,7 @@ public class MainScreen extends Activity implements SettingsFragment.OnFragmentI
     }
   }
   
-  public static String getEmergencyNumberByCountryCode(String paramString)
-  {
+  public static String getEmergencyNumberByCountryCode(String paramString) {
     if (paramString.equals("UA")) {
       return "112";
     }
@@ -97,8 +96,12 @@ public class MainScreen extends Activity implements SettingsFragment.OnFragmentI
   }
 
   @Override
-  public void onFragmentInteraction(Uri uri) {
-    Log.d(TAG, uri.toString() + " wants to interact");
+  public void onCurrentCountry(String newCountryCode) {
+    countryCode = newCountryCode;
+
+    this.mCountry = this.mDBHelper.getCountryByCode(countryCode);
+
+    MainScreen.this.getActionBar().setTitle("Welcome To " + MainScreen.this.mCountry.getName());
   }
 
   private Runnable openDrawerRunnable()
@@ -210,14 +213,8 @@ public class MainScreen extends Activity implements SettingsFragment.OnFragmentI
   }
   
   private DataBaseHelper connectToDB() {
-    DataBaseHelper localDataBaseHelper = new DataBaseHelper(this);
-    try {
-      localDataBaseHelper.openDataBase();
-      return localDataBaseHelper;
-    }
-    catch (SQLException localSQLException)
-    {
-      throw localSQLException;
-    }
+    DataBaseHelper localDataBaseHelper = DataBaseHelper.getInstance(this);
+    localDataBaseHelper.connectToDB();
+    return localDataBaseHelper;
   }
 }

@@ -1,20 +1,29 @@
-package com.welcometo.helpers;
+package com.welcometo.ui;
 
 import android.app.Activity;
 import android.net.Uri;
 import android.os.Bundle;
 import android.app.Fragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
+import android.widget.Spinner;
 import android.widget.TextView;
 
 import com.welcometo.R;
+import com.welcometo.helpers.Constants;
+import com.welcometo.helpers.Country;
+import com.welcometo.helpers.DataBaseHelper;
+import com.welcometo.helpers.SharedPreferencesHelper;
+
+import java.util.ArrayList;
 
 /**
  * A simple {@link Fragment} subclass.
  * Activities that contain this fragment must implement the
- * {@link SettingsFragment.OnFragmentInteractionListener} interface
+ * {@link SettingsFragment.OnSettingsListener} interface
  * to handle interaction events.
  * Use the {@link SettingsFragment#newInstance} factory method to
  * create an instance of this fragment.
@@ -29,7 +38,10 @@ public class SettingsFragment extends Fragment {
     private String mParam1;
     private String mParam2;
 
-    private OnFragmentInteractionListener mListener;
+    private OnSettingsListener mListener;
+
+    private ArrayList<Country> mCountries;
+
 
     /**
      * Use this factory method to create a new instance of
@@ -60,28 +72,35 @@ public class SettingsFragment extends Fragment {
             mParam1 = getArguments().getString(ARG_PARAM1);
             mParam2 = getArguments().getString(ARG_PARAM2);
         }
+
+        // init country list
+        Country localCountry = new Country();
+        localCountry.setName(getResources().getString(R.string.what_is_your_dest));
+        localCountry.setCode("0");
+        this.mCountries = new ArrayList<Country>();
+        this.mCountries.add(localCountry);
+        this.mCountries.addAll(DataBaseHelper.getInstance(getActivity()).getCountries());
+
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        TextView textView = new TextView(getActivity());
-        textView.setText(R.string.hello_blank_fragment);
-        return textView;
-    }
+        View localView = inflater.inflate(R.layout.settings, container, false);
 
-    // TODO: Rename method, update argument and hook method into UI event
-    public void onButtonPressed(Uri uri) {
-        if (mListener != null) {
-            mListener.onFragmentInteraction(uri);
-        }
+        CountryAdapterItem localCountryAdapterItem = new CountryAdapterItem(getActivity(), R.layout.country_item, this.mCountries);
+        localCountryAdapterItem.setDropDownViewResource(R.layout.country_list_item);
+        Spinner localSpinner = (Spinner)localView.findViewById(R.id.countryList);
+        localSpinner.setAdapter(localCountryAdapterItem);
+        localSpinner.setOnItemSelectedListener(new mySpinnerListener());
+        return localView;
     }
 
     @Override
     public void onAttach(Activity activity) {
         super.onAttach(activity);
         try {
-            mListener = (OnFragmentInteractionListener) activity;
+            mListener = (OnSettingsListener) activity;
         } catch (ClassCastException e) {
             throw new ClassCastException(activity.toString()
                     + " must implement OnFragmentInteractionListener");
@@ -104,9 +123,25 @@ public class SettingsFragment extends Fragment {
      * "http://developer.android.com/training/basics/fragments/communicating.html"
      * >Communicating with Other Fragments</a> for more information.
      */
-    public interface OnFragmentInteractionListener {
-        // TODO: Update argument type and name
-        public void onFragmentInteraction(Uri uri);
+    public interface OnSettingsListener {
+        void onCurrentCountry(String countryCode);
+    }
+
+    class mySpinnerListener implements AdapterView.OnItemSelectedListener {
+
+        public void onItemSelected(AdapterView paramAdapterView, View paramView, int paramInt, long paramLong) {
+            if (paramInt > 0) {
+                String countryCode = SettingsFragment.this.mCountries.get(paramInt).getCode();
+
+                Log.d("", "New country code: " + countryCode);
+
+                if (SettingsFragment.this.mListener != null) {
+                    SettingsFragment.this.mListener.onCurrentCountry(countryCode);
+                }
+            }
+        }
+
+        public void onNothingSelected(AdapterView paramAdapterView) {}
     }
 
 }

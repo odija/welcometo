@@ -23,8 +23,7 @@ import com.welcometo.R;
 import com.welcometo.helpers.Country;
 import java.util.Locale;
 
-public class TranslatorFragment
-  extends Fragment
+public class TranslatorFragment extends Fragment
   implements TextToSpeech.OnInitListener
 {
   private static final int MY_DATA_CHECK_CODE = 123;
@@ -41,7 +40,6 @@ public class TranslatorFragment
       localMediaPlayer.setDataSource(localAssetFileDescriptor.getFileDescriptor(), localAssetFileDescriptor.getStartOffset(), localAssetFileDescriptor.getLength());
       localMediaPlayer.prepare();
       localMediaPlayer.start();
-      return;
     }
     catch (Exception localException)
     {
@@ -111,7 +109,7 @@ public class TranslatorFragment
     Bundle localBundle = getArguments();
     if (localBundle != null)
     {
-      this.mCurrentCountry = ((Country)localBundle.getParcelable("dc"));
+      this.mCurrentCountry = localBundle.getParcelable("dc");
       if (this.mCurrentCountry.getLanguage() != null) {
     	  if (this.mCurrentCountry.getLanguage().equals("fr")) {
     	        this.mCurrentLocale = Locale.FRANCE;
@@ -167,8 +165,12 @@ public class TranslatorFragment
   }
 }
 
-
-/* Location:           D:\projects\decompilation\dex2jar-0.0.9.15\WelcomeTo_dex2jar.jar
- * Qualified Name:     com.welcometo.ui.TranslatorFragment
- * JD-Core Version:    0.7.0.1
+
+
+/* Location:           D:\projects\decompilation\dex2jar-0.0.9.15\WelcomeTo_dex2jar.jar
+
+ * Qualified Name:     com.welcometo.ui.TranslatorFragment
+
+ * JD-Core Version:    0.7.0.1
+
  */

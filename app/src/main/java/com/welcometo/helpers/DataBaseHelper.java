@@ -1,7 +1,6 @@
 package com.welcometo.helpers;
 
 import android.content.Context;
-import android.content.res.AssetManager;
 import android.database.Cursor;
 import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
@@ -11,7 +10,6 @@ import android.util.Log;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
-import java.io.OutputStream;
 import java.util.ArrayList;
 
 public class DataBaseHelper extends SQLiteOpenHelper {
@@ -19,21 +17,42 @@ public class DataBaseHelper extends SQLiteOpenHelper {
   private static String DB_PATH = "/data/data/com.welcometo/databases/";
   private static String TABLE_COUNTRY = "country";
   private static String TABLE_COUNTRY_CURRENCY = "country_currency";
+
+  private static DataBaseHelper mDBHelper;
+
   private final Context myContext;
   private SQLiteDatabase myDataBase;
-  
+
+  public static DataBaseHelper getInstance(Context context) {
+    if (mDBHelper == null) {
+      synchronized (DataBaseHelper.class) {
+        if (mDBHelper == null) {
+          mDBHelper = new DataBaseHelper(context);
+          return mDBHelper;
+        }
+      }
+    }
+    return mDBHelper;
+  }
+
   public DataBaseHelper(Context paramContext) {
     super(paramContext, DB_NAME, null, 1);
     this.myContext = paramContext;
   }
+
+  public void connectToDB() {
+      try {
+        createDataBase();
+      } catch(IOException e) {}
+
+      openDataBase();
+  }
   
   private boolean checkDataBase() {
     try {
-      SQLiteDatabase localSQLiteDatabase2 = SQLiteDatabase.openDatabase(DB_PATH + DB_NAME, null, 1);
-      myDataBase = localSQLiteDatabase2;
+      myDataBase = SQLiteDatabase.openDatabase(DB_PATH + DB_NAME, null, 1);
     }
-    catch (SQLiteException localSQLiteException)
-    {
+    catch (SQLiteException localSQLiteException) {
     }
     if (myDataBase != null) {
       myDataBase.close();
@@ -59,11 +78,10 @@ public class DataBaseHelper extends SQLiteOpenHelper {
     }
   }
   
-  private Country createCountryFromCursor(Cursor paramCursor)
-  {
+  private Country createCountryFromCursor(Cursor paramCursor) {
     String str1 = paramCursor.getString(0);
     String str2 = paramCursor.getString(1);
-    Integer localInteger = Integer.valueOf(paramCursor.getInt(2));
+    Integer localInteger = paramCursor.getInt(2);
     String str3 = paramCursor.getString(3);
     Log.d("Country CODE:", str1 + "\n");
     Log.d("Country NAME:", str2 + "\n");
@@ -77,52 +95,41 @@ public class DataBaseHelper extends SQLiteOpenHelper {
     return localCountry;
   }
   
-  public void close()
-  {
-    try
-    {
+  public void close() {
+    try {
       if (this.myDataBase != null) {
         this.myDataBase.close();
       }
       super.close();
-      return;
     }
     finally {}
   }
   
-  public void createDataBase()
-    throws IOException
-  {
+  public void createDataBase() throws IOException {
     if (!checkDataBase()) {
       getReadableDatabase();
     }
-    try
-    {
+    try {
       copyDataBase();
-      return;
     }
-    catch (IOException localIOException)
-    {
+    catch (IOException localIOException) {
       throw new Error("Error copying database");
     }
   }
   
-  public ArrayList<Country> getCountries()
-  {
-    ArrayList localArrayList = new ArrayList();
+  public ArrayList<Country> getCountries() {
+    ArrayList<Country> localArrayList = new ArrayList<Country>();
     String str = "SELECT  * FROM " + TABLE_COUNTRY;
     Cursor localCursor = getWritableDatabase().rawQuery(str, null);
     if (localCursor.moveToFirst()) {
-      do
-      {
+      do {
         localArrayList.add(createCountryFromCursor(localCursor));
       } while (localCursor.moveToNext());
     }
     return localArrayList;
   }
   
-  public Country getCountryByCode(String paramString)
-  {
+  public Country getCountryByCode(String paramString) {
     String str = "SELECT  * FROM " + TABLE_COUNTRY + " WHERE id = '" + paramString + "'";
     Cursor localCursor = getWritableDatabase().rawQuery(str, null);
     boolean bool = localCursor.moveToFirst();
@@ -133,8 +140,7 @@ public class DataBaseHelper extends SQLiteOpenHelper {
     return localCountry;
   }
   
-  public String getCurrencyByCountry(String paramString)
-  {
+  public String getCurrencyByCountry(String paramString) {
     String str1 = "SELECT  currency FROM " + TABLE_COUNTRY_CURRENCY + " WHERE country = '" + paramString + "'";
     Cursor localCursor = getWritableDatabase().rawQuery(str1, null);
     boolean bool = localCursor.moveToFirst();
@@ -149,9 +155,7 @@ public class DataBaseHelper extends SQLiteOpenHelper {
   
   public void onUpgrade(SQLiteDatabase paramSQLiteDatabase, int paramInt1, int paramInt2) {}
   
-  public void openDataBase()
-    throws SQLException
-  {
+  public void openDataBase() throws SQLException {
     this.myDataBase = SQLiteDatabase.openDatabase(DB_PATH + DB_NAME, null, 1);
   }
 }

@@ -34,7 +34,7 @@ public class InitScreen extends Activity {
     Country localCountry = new Country();
     localCountry.setName(getResources().getString(R.string.where_are_you_from));
     localCountry.setCode("0");
-    this.mCountries = new ArrayList();
+    this.mCountries = new ArrayList<Country>();
     this.mCountries.add(localCountry);
     this.mCountries.addAll(this.mDBHelper.getCountries());
 
@@ -61,15 +61,9 @@ public class InitScreen extends Activity {
   }
 
   private DataBaseHelper connectToDB()  {
-    DataBaseHelper localDataBaseHelper = new DataBaseHelper(this);
+    DataBaseHelper localDataBaseHelper = DataBaseHelper.getInstance(this);
 
-    if (localDataBaseHelper != null) {
-      try {
-        localDataBaseHelper.createDataBase();
-      } catch(IOException e) {}
-
-      localDataBaseHelper.openDataBase();
-    }
+    localDataBaseHelper.connectToDB();
 
     return localDataBaseHelper;
   }
@@ -79,15 +73,13 @@ public class InitScreen extends Activity {
     startActivity(new Intent(this, MainScreen.class));
   }
 
-  class mySpinnerListener
-    implements AdapterView.OnItemSelectedListener
-  {
+  class mySpinnerListener implements AdapterView.OnItemSelectedListener {
     mySpinnerListener() {}
     
     public void onItemSelected(AdapterView paramAdapterView, View paramView, int paramInt, long paramLong) {
       if (paramInt > 0) {
-        Log.d("", ((Country)InitScreen.this.mCountries.get(paramInt)).getCode());
-        SharedPreferencesHelper.getInstance(InitScreen.this).putString(Constants.OWN_COUNTRY_CODE, ((Country)InitScreen.this.mCountries.get(paramInt)).getCode());
+        Log.d("", (InitScreen.this.mCountries.get(paramInt)).getCode());
+        SharedPreferencesHelper.getInstance(InitScreen.this).putString(Constants.OWN_COUNTRY_CODE, (InitScreen.this.mCountries.get(paramInt)).getCode());
         InitScreen.this.startMainActivity();
       }
     }

@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout android:layout_width="fill_parent" android:layout_height="fill_parent"
   xmlns:android="http://schemas.android.com/apk/res/android">
-    <TextView android:textAppearance="?android:textAppearanceMedium" android:id="@id/lblFrom" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginLeft="28.0dip" android:layout_marginTop="64.0dip" android:text="Hello" android:layout_alignParentLeft="true" android:layout_alignParentTop="true" />
+    <TextView android:textAppearance="?android:textAppearanceMedium" android:id="@id/lblFrom" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginLeft="28.0dip" android:layout_marginTop="64.0dip" android:text="@string/hi" android:layout_alignParentLeft="true" android:layout_alignParentTop="true" />
     <TextView android:textAppearance="?android:textAppearanceLarge" android:id="@id/lblHi" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginTop="20.0dip" android:text="@string/hi" android:layout_below="@id/lblFrom" android:layout_alignLeft="@id/lblFrom" />
     <TextView android:textAppearance="?android:textAppearanceMedium" android:id="@id/lblRate" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginTop="45.0dip" android:text="How are you doing?" android:layout_below="@id/lblHi" android:layout_alignLeft="@id/lblHi" />
     <TextView android:textAppearance="?android:textAppearanceLarge" android:id="@id/lblHRU" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="@string/hru" android:layout_alignLeft="@id/lblRate" android:layout_centerVertical="true" />

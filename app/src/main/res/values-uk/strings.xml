@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="hi">Привіт</string>
+    <string name="hru">Як справи?</string>
+    <string name="thanks">Дякую</string>
+    <string name="howmuch">Скільки це коштує?</string>
+
+</resources>

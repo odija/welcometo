@@ -54,12 +54,12 @@ public class CurrencyFragment extends Fragment {
     String currencyTo;
 
     if (localBundle != null) {
-      currencyFrom = localBundle.getString(PARAM_CURRENT_CURRENCY);
-      currencyTo = localBundle.getString(PARAM_NATIVE_CURRENCY);
+      currencyFrom = localBundle.getString(PARAM_NATIVE_CURRENCY);
+      currencyTo = localBundle.getString(PARAM_CURRENT_CURRENCY);
       lblFrom.setText(currencyFrom);
       lblTo.setText(currencyTo);
       if (ConnectionHelper.isConnected(getActivity())) {
-        new GetCurrencyRate(currencyTo, currencyFrom).execute();
+        new GetCurrencyRate(currencyFrom, currencyTo).execute();
       }
     } else {
       return localView;
@@ -114,7 +114,7 @@ public class CurrencyFragment extends Fragment {
       Log.d("", paramString);
       try {
         //CurrencyFragment.this.mCurrencyRate = new JSONObject(paramString).getDouble("rate");
-          CurrencyFragment.this.mCurrencyRate = new JSONObject(paramString).getJSONObject("UAH_UAH").getDouble("val");
+          CurrencyFragment.this.mCurrencyRate = new JSONObject(paramString).getJSONObject(this.mFromCurrency + "_" + this.mToCurrency).getDouble("val");
         CurrencyFragment.this.mCurrencyRate = CurrencyFragment.round(CurrencyFragment.this.mCurrencyRate, 3, 4);
         CurrencyFragment.this.showRateLabel(this.mFromCurrency, this.mToCurrency, CurrencyFragment.this.mCurrencyRate);
         SharedPreferencesHelper.getInstance(CurrencyFragment.this.getActivity()).putString(this.mToCurrency, String.valueOf(CurrencyFragment.this.mCurrencyRate));

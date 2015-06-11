@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="hi">Cześć</string>
+    <string name="hru">Jak się masz?</string>
+    <string name="thanks">Dziękuję</string>
+    <string name="howmuch">Ile to kosztuje?</string>
+</resources>

@@ -1,14 +1,16 @@
 package com.welcometo.ui;
 
 import android.app.Fragment;
-import android.content.Intent;
 import android.content.res.AssetFileDescriptor;
+import android.content.res.Configuration;
+import android.content.res.Resources;
 import android.media.MediaPlayer;
 import android.os.Bundle;
-import android.speech.tts.TextToSpeech;
+import android.util.DisplayMetrics;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.welcometo.R;
@@ -22,6 +24,11 @@ public class TranslatorFragment extends Fragment {
   private static final int MY_DATA_CHECK_CODE = 123;
   private Country mCurrentCountry;
   private Locale mCurrentLocale;
+
+  private TextView mTxtHi;
+    private TextView mTxtHRU;
+    private TextView mTxtThanks;
+    private TextView mTxtHowMuch;
 
   public void audioPlayer(String paramString) {
     MediaPlayer localMediaPlayer = new MediaPlayer();
@@ -45,25 +52,37 @@ public class TranslatorFragment extends Fragment {
     
     localView.findViewById(R.id.btnHi).setOnClickListener(new View.OnClickListener() {
       public void onClick(View paramAnonymousView) {
-        String countryCode = TranslatorFragment.this.mCurrentCountry.getCode().toLowerCase();
+        String countryCode = TranslatorFragment.this.getCountryCode();
         TranslatorFragment.this.audioPlayer(countryCode + "_hi.mp3");
       }
     });
     
     localView.findViewById(R.id.btnHowAreYou).setOnClickListener(new View.OnClickListener() {
       public void onClick(View paramAnonymousView) {
-        String countryCode = TranslatorFragment.this.mCurrentCountry.getCode().toLowerCase();
+        String countryCode = TranslatorFragment.this.getCountryCode();
         TranslatorFragment.this.audioPlayer(countryCode + "_hru.mp3");
       }
     });
     
     localView.findViewById(R.id.btnThanks).setOnClickListener(new View.OnClickListener() {
       public void onClick(View paramAnonymousView) {
-        String countryCode = TranslatorFragment.this.mCurrentCountry.getCode().toLowerCase();
+        String countryCode = TranslatorFragment.this.getCountryCode();
         TranslatorFragment.this.audioPlayer(countryCode + "_thx.mp3");
       }
     });
-    
+
+    localView.findViewById(R.id.btnHowMuch).setOnClickListener(new View.OnClickListener() {
+      public void onClick(View paramAnonymousView) {
+        String countryCode = TranslatorFragment.this.getCountryCode();
+        TranslatorFragment.this.audioPlayer(countryCode + "_hm.mp3");
+      }
+    });
+
+     mTxtHi = (TextView)localView.findViewById(R.id.txtHi);
+      mTxtHRU = (TextView)localView.findViewById(R.id.txtHRU);
+      mTxtThanks = (TextView)localView.findViewById(R.id.txtThanks);
+    mTxtHowMuch = (TextView)localView.findViewById(R.id.txtHowMuch);
+
     // init
     Bundle localBundle = getArguments();
 
@@ -80,24 +99,25 @@ public class TranslatorFragment extends Fragment {
           } else if (this.mCurrentCountry.getLanguage().equals("it")) {
     	        this.mCurrentLocale = Locale.ITALY;
           }
-      }
-      this.mCurrentLocale = Locale.getDefault();
+      } else
+       this.mCurrentLocale = Locale.getDefault();
     }
 
-    /*if (!Locale.getDefault().getCountry().equals(this.mCurrentLocale.getCountry()))
-      {
-        Locale.setDefault(this.mCurrentLocale);
-        Configuration localConfiguration = new Configuration();
-        localConfiguration.locale = this.mCurrentLocale;
-        getActivity().getResources().updateConfiguration(localConfiguration, getActivity().getResources().getDisplayMetrics());
-        FragmentTransaction localFragmentTransaction = getFragmentManager().beginTransaction();
-        localFragmentTransaction.detach(this);
-        localFragmentTransaction.attach(this);
-        localFragmentTransaction.commit();
-      }
+      Configuration conf = getResources().getConfiguration();
+      conf.locale = new Locale(getCountryCode());
+      DisplayMetrics metrics = new DisplayMetrics();
+      getActivity().getWindowManager().getDefaultDisplay().getMetrics(metrics);
+      Resources resources = new Resources(getActivity().getAssets(), metrics, conf);
 
-*/
+      mTxtHi.setText(resources.getString(R.string.hi));
+    mTxtHRU.setText(resources.getString(R.string.hru));
+    mTxtThanks.setText(resources.getString(R.string.thanks));
+    mTxtHowMuch.setText(resources.getString(R.string.howmuch));
+
     return localView;
+  }
 
+  private String getCountryCode() {
+      return mCurrentCountry.getCode().toLowerCase();
   }
 }

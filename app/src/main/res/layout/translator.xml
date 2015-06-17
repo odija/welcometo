@@ -1,18 +1,22 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout android:layout_width="fill_parent" android:layout_height="fill_parent"
   xmlns:android="http://schemas.android.com/apk/res/android">
-    <TextView android:textAppearance="?android:textAppearanceMedium" android:id="@id/lblFrom" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginLeft="28.0dip" android:layout_marginTop="64.0dip" android:text="Hello" android:layout_alignParentLeft="true" android:layout_alignParentTop="true" />
-    <TextView android:textAppearance="?android:textAppearanceLarge" android:id="@id/txtHi" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginTop="20.0dip" android:text="@string/hi" android:layout_below="@id/lblFrom" android:layout_alignLeft="@id/lblFrom" />
-    <TextView android:textAppearance="?android:textAppearanceMedium" android:id="@id/lblHRU" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginTop="45.0dip" android:text="How are you doing?" android:layout_below="@id/txtHi" android:layout_alignLeft="@id/txtHi" />
-    <TextView android:textAppearance="?android:textAppearanceLarge" android:id="@id/txtHRU" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="@string/hru" android:layout_alignLeft="@id/lblHRU" android:layout_centerVertical="true" />
-    <TextView android:textAppearance="?android:textAppearanceMedium" android:id="@id/lblThanks" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginTop="46.0dip" android:text="Thanks" android:layout_below="@id/txtHRU" android:layout_alignLeft="@id/txtHRU" />
-    <TextView android:textAppearance="?android:textAppearanceLarge" android:id="@id/txtThanks" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginTop="19.0dip" android:text="@string/thanks" android:layout_below="@id/lblThanks" android:layout_alignLeft="@id/lblThanks" />
 
-  <TextView android:textAppearance="?android:textAppearanceMedium" android:id="@id/lblHowMuch" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginTop="46.0dip" android:text="How much?" android:layout_below="@id/txtThanks" android:layout_alignLeft="@id/txtThanks" />
-  <TextView android:textAppearance="?android:textAppearanceLarge" android:id="@id/txtHowMuch" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginTop="19.0dip" android:text="@string/thanks" android:layout_below="@id/lblHowMuch" android:layout_alignLeft="@id/lblHowMuch" />
+  <TextView style="@style/translatorLabelStyle" android:id="@id/lblHi" android:text="@string/hi" android:layout_alignParentLeft="true" android:layout_alignParentTop="true" />
+  <TextView style="@style/translatorTextStyle" android:id="@id/txtHi"  android:text="@string/hi" android:layout_below="@id/lblHi" android:layout_alignLeft="@id/lblHi" />
 
-    <Button android:id="@id/btnHowAreYou" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginRight="14.0dip" android:text=">" android:layout_alignBaseline="@id/txtHRU" android:layout_alignBottom="@id/txtHRU" android:layout_alignParentRight="true" />
-    <Button android:id="@id/btnHi" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text=">" android:layout_alignBaseline="@id/txtHi" android:layout_alignLeft="@id/btnHowAreYou" android:layout_alignBottom="@id/txtHi" />
-    <Button android:id="@id/btnThanks" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text=">" android:layout_alignBaseline="@id/textView6" android:layout_alignLeft="@id/btnHowAreYou" android:layout_alignBottom="@id/txtThanks" />
+  <TextView style="@style/translatorLabelStyle" android:id="@id/lblHRU" android:text="@string/hru" android:layout_below="@id/txtHi" android:layout_alignLeft="@id/txtHi" />
+  <TextView style="@style/translatorTextStyle" android:id="@id/txtHRU" android:text="@string/hru" android:layout_below="@id/lblHRU" android:layout_alignLeft="@id/lblHRU" />
+
+  <TextView style="@style/translatorLabelStyle" android:id="@id/lblThanks" android:text="@string/thanks" android:layout_below="@id/txtHRU" android:layout_alignLeft="@id/txtHRU" />
+  <TextView style="@style/translatorTextStyle" android:id="@id/txtThanks" android:text="@string/thanks" android:layout_below="@id/lblThanks" android:layout_alignLeft="@id/lblThanks" />
+
+  <TextView style="@style/translatorLabelStyle" android:id="@id/lblHowMuch" android:text="@string/howmuch" android:layout_below="@id/txtThanks" android:layout_alignLeft="@id/txtThanks" />
+  <TextView style="@style/translatorTextStyle" android:id="@id/txtHowMuch"  android:text="How much" android:layout_below="@id/lblHowMuch" android:layout_alignLeft="@id/lblHowMuch" />
+
+  <Button android:id="@id/btnHowAreYou" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginRight="14.0dip" android:text=">" android:layout_alignBaseline="@id/txtHRU" android:layout_alignBottom="@id/txtHRU" android:layout_alignParentRight="true" />
+  <Button android:id="@id/btnHi" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text=">" android:layout_alignBaseline="@id/txtHi" android:layout_alignLeft="@id/btnHowAreYou" android:layout_alignBottom="@id/txtHi" />
+  <Button android:id="@id/btnThanks" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text=">" android:layout_alignBaseline="@id/textView6" android:layout_alignLeft="@id/btnHowAreYou" android:layout_alignBottom="@id/txtThanks" />
   <Button android:id="@id/btnHowMuch" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text=">" android:layout_alignBaseline="@id/textView6" android:layout_alignLeft="@id/btnHowAreYou" android:layout_alignBottom="@id/txtHowMuch" />
+
 </RelativeLayout>

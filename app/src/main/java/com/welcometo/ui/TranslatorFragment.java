@@ -14,6 +14,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.welcometo.R;
+import com.welcometo.helpers.Constants;
 import com.welcometo.helpers.Country;
 
 import java.io.FileNotFoundException;
@@ -26,9 +27,9 @@ public class TranslatorFragment extends Fragment {
   private Locale mCurrentLocale;
 
   private TextView mTxtHi;
-    private TextView mTxtHRU;
-    private TextView mTxtThanks;
-    private TextView mTxtHowMuch;
+  private TextView mTxtHRU;
+  private TextView mTxtThanks;
+  private TextView mTxtHowMuch;
 
   public void audioPlayer(String paramString) {
     MediaPlayer localMediaPlayer = new MediaPlayer();
@@ -78,38 +79,29 @@ public class TranslatorFragment extends Fragment {
       }
     });
 
-     mTxtHi = (TextView)localView.findViewById(R.id.txtHi);
-      mTxtHRU = (TextView)localView.findViewById(R.id.txtHRU);
-      mTxtThanks = (TextView)localView.findViewById(R.id.txtThanks);
+    mTxtHi = (TextView)localView.findViewById(R.id.txtHi);
+    mTxtHRU = (TextView)localView.findViewById(R.id.txtHRU);
+    mTxtThanks = (TextView)localView.findViewById(R.id.txtThanks);
     mTxtHowMuch = (TextView)localView.findViewById(R.id.txtHowMuch);
 
     // init
     Bundle localBundle = getArguments();
 
     if (localBundle != null) {
-      this.mCurrentCountry = localBundle.getParcelable("dc");
-
-      if (this.mCurrentCountry.getLanguage() != null) {
-    	  if (this.mCurrentCountry.getLanguage().equals("fr")) {
-    	        this.mCurrentLocale = Locale.FRANCE;
-          } else if (this.mCurrentCountry.getLanguage().equals("de")) {
-    	        this.mCurrentLocale = Locale.GERMANY;
-          } else if (this.mCurrentCountry.getLanguage().equals("es")) {
-    	        this.mCurrentLocale = new Locale("es", "ES");
-          } else if (this.mCurrentCountry.getLanguage().equals("it")) {
-    	        this.mCurrentLocale = Locale.ITALY;
-          }
-      } else
-       this.mCurrentLocale = Locale.getDefault();
+      this.mCurrentCountry = localBundle.getParcelable(Constants.PARAM_COUNTRY);
     }
 
-      Configuration conf = getResources().getConfiguration();
-      conf.locale = new Locale(getCountryCode());
-      DisplayMetrics metrics = new DisplayMetrics();
-      getActivity().getWindowManager().getDefaultDisplay().getMetrics(metrics);
-      Resources resources = new Resources(getActivity().getAssets(), metrics, conf);
+    // block for setting labels with current country locale
 
-      mTxtHi.setText(resources.getString(R.string.hi));
+    DisplayMetrics metrics = new DisplayMetrics();
+    getActivity().getWindowManager().getDefaultDisplay().getMetrics(metrics);
+
+    Configuration conf = getResources().getConfiguration();
+    conf.locale = new Locale(getCountryCode());
+
+    Resources resources = new Resources(getActivity().getAssets(), metrics, conf);
+
+    mTxtHi.setText(resources.getString(R.string.hi));
     mTxtHRU.setText(resources.getString(R.string.hru));
     mTxtThanks.setText(resources.getString(R.string.thanks));
     mTxtHowMuch.setText(resources.getString(R.string.howmuch));
@@ -118,6 +110,8 @@ public class TranslatorFragment extends Fragment {
   }
 
   private String getCountryCode() {
-      return mCurrentCountry.getCode().toLowerCase();
+    String a =   mCurrentCountry.getLanguage() != null ? mCurrentCountry.getLanguage().toLowerCase()
+            : mCurrentCountry.getCode().toLowerCase();
+    return a;
   }
 }

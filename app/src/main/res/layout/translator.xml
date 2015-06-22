@@ -1,8 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout android:layout_width="fill_parent" android:layout_height="fill_parent"
-  xmlns:android="http://schemas.android.com/apk/res/android">
+  xmlns:android="http://schemas.android.com/apk/res/android"
+    android:paddingLeft="50dp">
 
-  <TextView style="@style/translatorLabelStyle" android:id="@id/lblHi" android:text="@string/hi" android:layout_alignParentLeft="true" android:layout_alignParentTop="true" />
+  <TextView style="@style/translatorLabelStyle" android:id="@id/lblHi" android:text="@string/hi" android:layout_alignParentLeft="true" android:layout_alignParentTop="true"
+      android:paddingTop="0dp"
+      android:paddingLeft="0dp" />
   <TextView style="@style/translatorTextStyle" android:id="@id/txtHi"  android:text="@string/hi" android:layout_below="@id/lblHi" android:layout_alignLeft="@id/lblHi" />
 
   <TextView style="@style/translatorLabelStyle" android:id="@id/lblHRU" android:text="@string/hru" android:layout_below="@id/txtHi" android:layout_alignLeft="@id/txtHi" />

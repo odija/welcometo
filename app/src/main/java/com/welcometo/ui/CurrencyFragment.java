@@ -88,10 +88,16 @@ public class CurrencyFragment extends Fragment {
     protected String doInBackground(Void... paramVarArgs) {
       DefaultHttpClient localDefaultHttpClient = new DefaultHttpClient();
       try {
-        //HttpResponse localHttpResponse = localDefaultHttpClient.execute(new HttpGet("http://rate-exchange.appspot.com/currency?from=" + this.mFromCurrency + "&to=" + this.mToCurrency));
+          //String apiURL = "http://www.freecurrencyconverterapi.com/api/v3/convert?q=" + this.mFromCurrency + "_" + this.mToCurrency + "&compact=y";
+          //HttpResponse localHttpResponse = localDefaultHttpClient.execute(new HttpGet("http://rate-exchange.appspot.com/currency?from=" + this.mFromCurrency + "&to=" + this.mToCurrency));
 
-          HttpResponse localHttpResponse = localDefaultHttpClient.execute(new HttpGet("http://www.freecurrencyconverterapi.com/api/v3/convert?q=" + this.mFromCurrency + "_" + this.mToCurrency + "&compact=y"));
+          String apiURL = "https://openexchangerates.org/api/latest.json?app_id=b5ab93de71fd4a7c9192b5d89f965892";
+
+          Log.d("", "HTTP load: " + apiURL);
+          HttpResponse localHttpResponse = localDefaultHttpClient.execute(new HttpGet(apiURL));
           StatusLine localStatusLine = localHttpResponse.getStatusLine();
+
+          Log.d("", "HTTP return code: " + localStatusLine.getStatusCode());
 
         if (localStatusLine.getStatusCode() == 200) {
           ByteArrayOutputStream localByteArrayOutputStream = new ByteArrayOutputStream();
@@ -103,18 +109,26 @@ public class CurrencyFragment extends Fragment {
         throw new IOException(localStatusLine.getReasonPhrase());
       }
       catch (ClientProtocolException localClientProtocolException) {
-        return null;
+          Log.e("", localClientProtocolException.getMessage());
+          return null;
       }
       catch (IOException localIOException) {
+          Log.e("", localIOException.getMessage());
           return null;
       }
     }
     
     protected void onPostExecute(String paramString) {
-      Log.d("", paramString);
+
       try {
-        //CurrencyFragment.this.mCurrencyRate = new JSONObject(paramString).getDouble("rate");
-          CurrencyFragment.this.mCurrencyRate = new JSONObject(paramString).getJSONObject(this.mFromCurrency + "_" + this.mToCurrency).getDouble("val");
+          Log.d("", paramString);
+
+          JSONObject rates = new JSONObject(paramString).getJSONObject("rates");
+
+        Double fromCurrency = rates.getDouble(this.mFromCurrency);
+        Double toCurrency = rates.getDouble(this.mToCurrency);
+
+        CurrencyFragment.this.mCurrencyRate = fromCurrency / toCurrency;
         CurrencyFragment.this.mCurrencyRate = CurrencyFragment.round(CurrencyFragment.this.mCurrencyRate, 3, 4);
         CurrencyFragment.this.showRateLabel(this.mFromCurrency, this.mToCurrency, CurrencyFragment.this.mCurrencyRate);
         SharedPreferencesHelper.getInstance(CurrencyFragment.this.getActivity()).putString(this.mToCurrency, String.valueOf(CurrencyFragment.this.mCurrencyRate));

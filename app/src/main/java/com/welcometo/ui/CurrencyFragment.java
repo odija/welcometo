@@ -13,6 +13,7 @@ import android.widget.TextView;
 
 import com.welcometo.R;
 import com.welcometo.helpers.ConnectionHelper;
+import com.welcometo.helpers.GetCurrencyRate;
 import com.welcometo.helpers.SharedPreferencesHelper;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
@@ -50,8 +51,8 @@ public class CurrencyFragment extends Fragment {
     this.lblRate = ((TextView)localView.findViewById(R.id.lblRate));
 
     Bundle localBundle = getArguments();
-    String currencyFrom;
-    String currencyTo;
+    final String currencyFrom;
+    final String currencyTo;
 
     if (localBundle != null) {
       currencyFrom = localBundle.getString(PARAM_NATIVE_CURRENCY);
@@ -59,7 +60,15 @@ public class CurrencyFragment extends Fragment {
       lblFrom.setText(currencyFrom);
       lblTo.setText(currencyTo);
       if (ConnectionHelper.isConnected(getActivity())) {
-        new GetCurrencyRate(currencyFrom, currencyTo).execute();
+        new GetCurrencyRate(currencyFrom, currencyTo, new GetCurrencyRate.ICallback(){
+            @Override
+            public void onComplete(double rate) {
+                CurrencyFragment.this.mCurrencyRate = rate;
+                CurrencyFragment.this.mCurrencyRate = CurrencyFragment.round(CurrencyFragment.this.mCurrencyRate, 3, 4);
+                CurrencyFragment.this.showRateLabel(currencyFrom, currencyTo, CurrencyFragment.this.mCurrencyRate);
+                SharedPreferencesHelper.getInstance(CurrencyFragment.this.getActivity()).putString(currencyTo, String.valueOf(CurrencyFragment.this.mCurrencyRate));
+            }
+        }).execute();
       }
     } else {
       return localView;
@@ -74,69 +83,6 @@ public class CurrencyFragment extends Fragment {
     this.mCurrencyRate = 1.0D;
     showRateLabel("no internet");
     return localView;
-  }
-  
-  private class GetCurrencyRate extends AsyncTask<Void, Void, String> {
-    private String mFromCurrency;
-    private String mToCurrency;
-    
-    public GetCurrencyRate(String paramString1, String paramString2) {
-      this.mToCurrency = paramString2;
-      this.mFromCurrency = paramString1;
-    }
-    
-    protected String doInBackground(Void... paramVarArgs) {
-      DefaultHttpClient localDefaultHttpClient = new DefaultHttpClient();
-      try {
-          //String apiURL = "http://www.freecurrencyconverterapi.com/api/v3/convert?q=" + this.mFromCurrency + "_" + this.mToCurrency + "&compact=y";
-          //HttpResponse localHttpResponse = localDefaultHttpClient.execute(new HttpGet("http://rate-exchange.appspot.com/currency?from=" + this.mFromCurrency + "&to=" + this.mToCurrency));
-
-          String apiURL = "https://openexchangerates.org/api/latest.json?app_id=b5ab93de71fd4a7c9192b5d89f965892";
-
-          Log.d("", "HTTP load: " + apiURL);
-          HttpResponse localHttpResponse = localDefaultHttpClient.execute(new HttpGet(apiURL));
-          StatusLine localStatusLine = localHttpResponse.getStatusLine();
-
-          Log.d("", "HTTP return code: " + localStatusLine.getStatusCode());
-
-        if (localStatusLine.getStatusCode() == 200) {
-          ByteArrayOutputStream localByteArrayOutputStream = new ByteArrayOutputStream();
-          localHttpResponse.getEntity().writeTo(localByteArrayOutputStream);
-          localByteArrayOutputStream.close();
-          return localByteArrayOutputStream.toString();
-        }
-        localHttpResponse.getEntity().getContent().close();
-        throw new IOException(localStatusLine.getReasonPhrase());
-      }
-      catch (ClientProtocolException localClientProtocolException) {
-          Log.e("", localClientProtocolException.getMessage());
-          return null;
-      }
-      catch (IOException localIOException) {
-          Log.e("", localIOException.getMessage());
-          return null;
-      }
-    }
-    
-    protected void onPostExecute(String paramString) {
-
-      try {
-          Log.d("", paramString);
-
-          JSONObject rates = new JSONObject(paramString).getJSONObject("rates");
-
-        Double fromCurrency = rates.getDouble(this.mFromCurrency);
-        Double toCurrency = rates.getDouble(this.mToCurrency);
-
-        CurrencyFragment.this.mCurrencyRate = fromCurrency / toCurrency;
-        CurrencyFragment.this.mCurrencyRate = CurrencyFragment.round(CurrencyFragment.this.mCurrencyRate, 3, 4);
-        CurrencyFragment.this.showRateLabel(this.mFromCurrency, this.mToCurrency, CurrencyFragment.this.mCurrencyRate);
-        SharedPreferencesHelper.getInstance(CurrencyFragment.this.getActivity()).putString(this.mToCurrency, String.valueOf(CurrencyFragment.this.mCurrencyRate));
-      }
-      catch (Exception localException) {
-        Log.e("", "Error parse JSON");
-      }
-    }
   }
 
     private TextWatcher txtFromWatcher = new TextWatcher() {

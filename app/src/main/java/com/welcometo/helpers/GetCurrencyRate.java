@@ -1,5 +1,6 @@
 package com.welcometo.helpers;
 
+import android.content.Context;
 import android.os.AsyncTask;
 import android.util.Log;
 
@@ -21,8 +22,9 @@ public class GetCurrencyRate extends AsyncTask<Void, Void, String> {
     private String mFromCurrency;
     private String mToCurrency;
     private ICallback mCallback;
+    private Context mContext;
 
-    public GetCurrencyRate(String fromCurrency, String toCurrency, ICallback callback) {
+    public GetCurrencyRate(Context mContext, String fromCurrency, String toCurrency, ICallback callback) {
         this.mToCurrency = toCurrency;
         this.mFromCurrency = fromCurrency;
         this.mCallback = callback;
@@ -30,6 +32,7 @@ public class GetCurrencyRate extends AsyncTask<Void, Void, String> {
 
     protected String doInBackground(Void... paramVarArgs) {
         DefaultHttpClient localDefaultHttpClient = new DefaultHttpClient();
+
         try {
             //String apiURL = "http://www.freecurrencyconverterapi.com/api/v3/convert?q=" + this.mFromCurrency + "_" + this.mToCurrency + "&compact=y";
             //HttpResponse localHttpResponse = localDefaultHttpClient.execute(new HttpGet("http://rate-exchange.appspot.com/currency?from=" + this.mFromCurrency + "&to=" + this.mToCurrency));
@@ -67,6 +70,8 @@ public class GetCurrencyRate extends AsyncTask<Void, Void, String> {
             Log.d("", paramString);
 
             JSONObject rates = new JSONObject(paramString).getJSONObject("rates");
+
+            DataBaseHelper.getInstance(mContext).initCurrencyRates(rates);
 
             Double fromCurrency = rates.getDouble(this.mFromCurrency);
             Double toCurrency = rates.getDouble(this.mToCurrency);

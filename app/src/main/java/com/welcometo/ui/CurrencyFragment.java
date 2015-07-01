@@ -60,7 +60,7 @@ public class CurrencyFragment extends Fragment {
       lblFrom.setText(currencyFrom);
       lblTo.setText(currencyTo);
       if (ConnectionHelper.isConnected(getActivity())) {
-        new GetCurrencyRate(currencyFrom, currencyTo, new GetCurrencyRate.ICallback(){
+        new GetCurrencyRate(getActivity(), currencyFrom, currencyTo, new GetCurrencyRate.ICallback(){
             @Override
             public void onComplete(double rate) {
                 CurrencyFragment.this.mCurrencyRate = rate;

@@ -1,5 +1,6 @@
 package com.welcometo.helpers;
 
+import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
 import android.database.SQLException;
@@ -7,16 +8,27 @@ import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteException;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.util.Log;
+
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.ArrayList;
+import java.util.Iterator;
 
 public class DataBaseHelper extends SQLiteOpenHelper {
   private static String DB_NAME = "welcometo";
   private static String DB_PATH = "/data/data/com.welcometo/databases/";
+
   private static String TABLE_COUNTRY = "country";
   private static String TABLE_COUNTRY_CURRENCY = "country_currency";
+  private static String TABLE_CURRENCY_RATE = "currency_rate";
+
+  private static String FIELD_CURRENCY = "currency";
+  private static String FIELD_COUNTRY = "country";
+  private static String FIELD_RATE = "rate";
 
   private static DataBaseHelper mDBHelper;
 
@@ -150,7 +162,45 @@ public class DataBaseHelper extends SQLiteOpenHelper {
     }
     return str2;
   }
-  
+
+  public void initCurrencyRates(JSONObject rates) {
+
+    if (rates != null) {
+      // delete all rates
+      getWritableDatabase().delete(TABLE_CURRENCY_RATE, null, null);
+
+      // init new rates
+      ContentValues values = new ContentValues();
+      Iterator<String> iter = rates.keys();
+      while (iter.hasNext()) {
+
+        String currency = iter.next();
+
+        try {
+          String rate = rates.get(currency).toString();
+          values.put(FIELD_CURRENCY, currency);
+          values.put(FIELD_RATE, rate);
+        } catch (JSONException e) {
+          // Something went wrong!
+        }
+
+        getWritableDatabase().insert(TABLE_CURRENCY_RATE, FIELD_COUNTRY, values);
+      }
+    }
+  }
+
+  public double getCurrencyRate(String currency) {
+    String query = "SELECT  " + FIELD_RATE + " FROM " + TABLE_CURRENCY_RATE + " WHERE " + FIELD_CURRENCY + " = " + currency;
+    Cursor localCursor = getWritableDatabase().rawQuery(query, null);
+    boolean bool = localCursor.moveToFirst();
+
+    if (bool) {
+      return localCursor.getDouble(0);
+    }
+
+    return 0;
+  }
+
   public void onCreate(SQLiteDatabase paramSQLiteDatabase) {}
   
   public void onUpgrade(SQLiteDatabase paramSQLiteDatabase, int paramInt1, int paramInt2) {}

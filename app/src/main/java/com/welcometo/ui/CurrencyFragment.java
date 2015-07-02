@@ -1,29 +1,18 @@
 package com.welcometo.ui;
 
 import android.app.Fragment;
-import android.os.AsyncTask;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.welcometo.R;
-import com.welcometo.helpers.ConnectionHelper;
-import com.welcometo.helpers.GetCurrencyRate;
-import com.welcometo.helpers.SharedPreferencesHelper;
-import java.io.ByteArrayOutputStream;
-import java.io.IOException;
+import com.welcometo.helpers.DataBaseHelper;
+
 import java.math.BigDecimal;
-import org.apache.http.HttpResponse;
-import org.apache.http.StatusLine;
-import org.apache.http.client.ClientProtocolException;
-import org.apache.http.client.methods.HttpGet;
-import org.apache.http.impl.client.DefaultHttpClient;
-import org.json.JSONObject;
 
 public class CurrencyFragment extends Fragment {
 
@@ -33,6 +22,7 @@ public class CurrencyFragment extends Fragment {
   private TextView lblRate;
   private double mCurrencyRate = 1.0D;
   private TextView txtFrom;
+    private DataBaseHelper db;
 
   public View onCreateView(LayoutInflater paramLayoutInflater, ViewGroup paramViewGroup, Bundle paramBundle) {
 
@@ -40,6 +30,8 @@ public class CurrencyFragment extends Fragment {
 
     TextView lblFrom;
     TextView lblTo;
+
+      db = DataBaseHelper.getInstance(getActivity());
 
     this.txtFrom = ((TextView)localView.findViewById(R.id.txtFrom));
     this.txtFrom.addTextChangedListener(this.txtFromWatcher);
@@ -59,29 +51,14 @@ public class CurrencyFragment extends Fragment {
       currencyTo = localBundle.getString(PARAM_CURRENT_CURRENCY);
       lblFrom.setText(currencyFrom);
       lblTo.setText(currencyTo);
-      if (ConnectionHelper.isConnected(getActivity())) {
-        new GetCurrencyRate(getActivity(), currencyFrom, currencyTo, new GetCurrencyRate.ICallback(){
-            @Override
-            public void onComplete(double rate) {
-                CurrencyFragment.this.mCurrencyRate = rate;
-                CurrencyFragment.this.mCurrencyRate = CurrencyFragment.round(CurrencyFragment.this.mCurrencyRate, 3, 4);
-                CurrencyFragment.this.showRateLabel(currencyFrom, currencyTo, CurrencyFragment.this.mCurrencyRate);
-                SharedPreferencesHelper.getInstance(CurrencyFragment.this.getActivity()).putString(currencyTo, String.valueOf(CurrencyFragment.this.mCurrencyRate));
-            }
-        }).execute();
-      }
+
+        mCurrencyRate = db.getCurrencyRate(currencyFrom) / db.getCurrencyRate(currencyTo);
+        mCurrencyRate = CurrencyFragment.round(mCurrencyRate, 3, 4);
+        showRateLabel(currencyFrom, currencyTo, mCurrencyRate);
     } else {
       return localView;
     }
 
-    if (SharedPreferencesHelper.getInstance(getActivity()).getString(currencyFrom, null) != null) {
-      this.mCurrencyRate = Float.valueOf(SharedPreferencesHelper.getInstance(getActivity()).getString(currencyFrom, null));
-      showRateLabel(currencyTo, currencyFrom, this.mCurrencyRate);
-      return localView;
-    }
-
-    this.mCurrencyRate = 1.0D;
-    showRateLabel("no internet");
     return localView;
   }
 

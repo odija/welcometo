@@ -17,17 +17,12 @@ import java.io.IOException;
 /**
  * Created by volodya on 6/24/15.
  */
-public class GetCurrencyRate extends AsyncTask<Void, Void, String> {
+public class InitCurrencyRate extends AsyncTask<Void, Void, String> {
 
-    private String mFromCurrency;
-    private String mToCurrency;
-    private ICallback mCallback;
     private Context mContext;
 
-    public GetCurrencyRate(Context mContext, String fromCurrency, String toCurrency, ICallback callback) {
-        this.mToCurrency = toCurrency;
-        this.mFromCurrency = fromCurrency;
-        this.mCallback = callback;
+    public InitCurrencyRate(Context mContext) {
+        this.mContext = mContext;
     }
 
     protected String doInBackground(Void... paramVarArgs) {
@@ -72,20 +67,9 @@ public class GetCurrencyRate extends AsyncTask<Void, Void, String> {
             JSONObject rates = new JSONObject(paramString).getJSONObject("rates");
 
             DataBaseHelper.getInstance(mContext).initCurrencyRates(rates);
-
-            Double fromCurrency = rates.getDouble(this.mFromCurrency);
-            Double toCurrency = rates.getDouble(this.mToCurrency);
-
-            if (mCallback != null) {
-                mCallback.onComplete(fromCurrency / toCurrency);
-            }
         }
         catch (Exception localException) {
             Log.e("", "Error parse JSON");
         }
-    }
-
-    public interface ICallback {
-        void onComplete(double rate);
     }
 }

@@ -190,7 +190,7 @@ public class DataBaseHelper extends SQLiteOpenHelper {
   }
 
   public double getCurrencyRate(String currency) {
-    String query = "SELECT  " + FIELD_RATE + " FROM " + TABLE_CURRENCY_RATE + " WHERE " + FIELD_CURRENCY + " = " + currency;
+    String query = "SELECT  " + FIELD_RATE + " FROM " + TABLE_CURRENCY_RATE + " WHERE " + FIELD_CURRENCY + " = '" + currency + "'";
     Cursor localCursor = getWritableDatabase().rawQuery(query, null);
     boolean bool = localCursor.moveToFirst();
 

@@ -1,6 +1,5 @@
 package com.welcometo.ui;
 
-
 import android.app.Activity;
 import android.app.Fragment;
 import android.database.SQLException;
@@ -18,10 +17,13 @@ import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
 import com.welcometo.R;
+import com.welcometo.helpers.ConnectionHelper;
 import com.welcometo.helpers.Constants;
 import com.welcometo.helpers.Country;
 import com.welcometo.helpers.CountryHelper;
 import com.welcometo.helpers.DataBaseHelper;
+import com.welcometo.helpers.InitCurrencyRate;
+import com.welcometo.helpers.SharedPreferencesHelper;
 
 public class MainScreen extends Activity implements SettingsFragment.OnSettingsListener {
 	
@@ -65,9 +67,9 @@ public class MainScreen extends Activity implements SettingsFragment.OnSettingsL
 
     setContentView(R.layout.main_screen);
 
-    this.mDrawerList = ((ListView)findViewById(R.id.left_drawer));
+    this.mDrawerList = ((ListView) findViewById(R.id.left_drawer));
     this.mMenuItems = getResources().getStringArray(R.array.main_menu);
-    this.mDrawerLayout = ((DrawerLayout)findViewById(R.id.drawer_layout));
+    this.mDrawerLayout = ((DrawerLayout) findViewById(R.id.drawer_layout));
     this.mDrawerList.setAdapter(new ArrayAdapter(this, R.layout.main_menu_item, this.mMenuItems));
 
     setProgressBarIndeterminateVisibility(true);
@@ -78,7 +80,7 @@ public class MainScreen extends Activity implements SettingsFragment.OnSettingsL
     this.mDBHelper = connectToDB();
 
     // calc current country code
-    countryCode = ((TelephonyManager)getSystemService("phone")).getNetworkCountryIso().toUpperCase();
+    countryCode = ((TelephonyManager) getSystemService("phone")).getNetworkCountryIso().toUpperCase();
 
     this.mCountry = this.mDBHelper.getCountryByCode(countryCode);
 
@@ -86,8 +88,13 @@ public class MainScreen extends Activity implements SettingsFragment.OnSettingsL
     if (this.mCountry != null) {
       new Handler().postDelayed(openDrawerRunnable(), 1000L);
     }
+
+    // init currency
+    if (ConnectionHelper.isConnected(this)) {
+      new InitCurrencyRate(this).execute();
+    }
   }
-  
+
   public static String getEmergencyNumberByCountryCode(String paramString) {
     if (paramString.equals("UA")) {
       return "112";

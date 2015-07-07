@@ -2,14 +2,15 @@ package com.welcometo.ui;
 
 import android.app.Activity;
 import android.app.Fragment;
-import android.database.SQLException;
+import android.app.job.JobInfo;
+import android.app.job.JobScheduler;
+import android.content.ComponentName;
+import android.content.Context;
 import android.location.LocationManager;
-import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.v4.widget.DrawerLayout;
 import android.telephony.TelephonyManager;
-import android.util.Log;
 import android.view.View;
 import android.view.Window;
 import android.widget.AdapterView;
@@ -17,13 +18,12 @@ import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
 import com.welcometo.R;
-import com.welcometo.helpers.ConnectionHelper;
 import com.welcometo.helpers.Constants;
 import com.welcometo.helpers.Country;
 import com.welcometo.helpers.CountryHelper;
 import com.welcometo.helpers.DataBaseHelper;
 import com.welcometo.helpers.InitCurrencyRate;
-import com.welcometo.helpers.SharedPreferencesHelper;
+import com.welcometo.service.CurrencyRateService;
 
 public class MainScreen extends Activity implements SettingsFragment.OnSettingsListener {
 	
@@ -38,6 +38,8 @@ public class MainScreen extends Activity implements SettingsFragment.OnSettingsL
   private ListView mDrawerList;
   private LocationManager mLocationManager;
   private String[] mMenuItems;
+
+  private JobScheduler mInitCurrencyJobSheduler;
   
   /*public static Address getAddress(Context paramContext, double paramDouble1, double paramDouble2)
   {
@@ -90,9 +92,18 @@ public class MainScreen extends Activity implements SettingsFragment.OnSettingsL
     }
 
     // init currency
-    if (ConnectionHelper.isConnected(this)) {
-      new InitCurrencyRate(this).execute();
-    }
+    //if (ConnectionHelper.isConnected(this)) {
+    //  new InitCurrencyRate(this).execute();
+    //}
+
+    mInitCurrencyJobSheduler = (JobScheduler) getSystemService(Context.JOB_SCHEDULER_SERVICE);
+
+    JobInfo.Builder builder = new JobInfo.Builder(1, new ComponentName(getPackageName(),
+            CurrencyRateService.class.getName())).setPeriodic(24*3600*1000).setRequiredNetworkType(JobInfo.NETWORK_TYPE_ANY);
+
+    mInitCurrencyJobSheduler.schedule(builder.build());
+
+    new InitCurrencyRate(getApplicationContext(), null).execute();
   }
 
   public static String getEmergencyNumberByCountryCode(String paramString) {

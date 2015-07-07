@@ -13,6 +13,8 @@ import org.json.JSONObject;
 
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
+import java.util.Calendar;
+import java.util.Date;
 
 /**
  * Created by volodya on 6/24/15.
@@ -20,9 +22,28 @@ import java.io.IOException;
 public class InitCurrencyRate extends AsyncTask<Void, Void, String> {
 
     private Context mContext;
+    private ICallback mCallback;
 
-    public InitCurrencyRate(Context mContext) {
-        this.mContext = mContext;
+    private static String CURRENCY_RATE_SYNC_DATE = "crsd";
+
+    public InitCurrencyRate(Context context, ICallback callback) {
+        mContext = context;
+        mCallback = callback;
+    }
+
+    @Override
+    protected void onPreExecute() {
+        super.onPreExecute();
+
+        long lastSyncTime = SharedPreferencesHelper.getInstance(mContext).getLong(CURRENCY_RATE_SYNC_DATE, 0);
+
+        if (lastSyncTime > 0) {
+            long currentTimeStamp = getCurrentTimeStamp();
+
+            if (currentTimeStamp - lastSyncTime < 3600 * 24) {
+                cancel(true);
+            }
+        }
     }
 
     protected String doInBackground(Void... paramVarArgs) {
@@ -67,9 +88,21 @@ public class InitCurrencyRate extends AsyncTask<Void, Void, String> {
             JSONObject rates = new JSONObject(paramString).getJSONObject("rates");
 
             DataBaseHelper.getInstance(mContext).initCurrencyRates(rates);
+
+            SharedPreferencesHelper.getInstance(mContext).putLong(CURRENCY_RATE_SYNC_DATE, getCurrentTimeStamp());
+
+            if (mCallback != null) mCallback.onComplete();
         }
         catch (Exception localException) {
             Log.e("", "Error parse JSON");
         }
+    }
+
+    private long getCurrentTimeStamp() {
+        return new java.sql.Timestamp(Calendar.getInstance().getTime().getTime()).getTime() / 1000;
+    }
+
+    public interface ICallback {
+        void onComplete();
     }
 }

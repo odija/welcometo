@@ -4,17 +4,16 @@ import android.content.Context;
 import android.os.AsyncTask;
 import android.util.Log;
 
-import org.apache.http.HttpResponse;
-import org.apache.http.StatusLine;
-import org.apache.http.client.ClientProtocolException;
-import org.apache.http.client.methods.HttpGet;
-import org.apache.http.impl.client.DefaultHttpClient;
 import org.json.JSONObject;
 
-import java.io.ByteArrayOutputStream;
+import java.io.BufferedReader;
 import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.net.HttpURLConnection;
+import java.net.URL;
 import java.util.Calendar;
-import java.util.Date;
+
 
 /**
  * Created by volodya on 6/24/15.
@@ -40,41 +39,35 @@ public class InitCurrencyRate extends AsyncTask<Void, Void, String> {
         if (lastSyncTime > 0) {
             long currentTimeStamp = getCurrentTimeStamp();
 
-            if (currentTimeStamp - lastSyncTime < 3600 * 24) {
-                cancel(true);
-            }
+           // if (currentTimeStamp - lastSyncTime < 3600 * 24) {
+           //     cancel(true);
+           // }
         }
     }
 
     protected String doInBackground(Void... paramVarArgs) {
-        DefaultHttpClient localDefaultHttpClient = new DefaultHttpClient();
+        String apiURL = "https://openexchangerates.org/api/latest.json?app_id=b5ab93de71fd4a7c9192b5d89f965892";
 
         try {
-            //String apiURL = "http://www.freecurrencyconverterapi.com/api/v3/convert?q=" + this.mFromCurrency + "_" + this.mToCurrency + "&compact=y";
-            //HttpResponse localHttpResponse = localDefaultHttpClient.execute(new HttpGet("http://rate-exchange.appspot.com/currency?from=" + this.mFromCurrency + "&to=" + this.mToCurrency));
+            URL url = new URL(apiURL);
+            HttpURLConnection conn = (HttpURLConnection) url.openConnection();
+            conn.setReadTimeout(10000 /* milliseconds */);
+            conn.setConnectTimeout(15000 /* milliseconds */);
+            conn.setRequestMethod("GET");
+            conn.setDoInput(true);
 
-            String apiURL = "https://openexchangerates.org/api/latest.json?app_id=b5ab93de71fd4a7c9192b5d89f965892";
+            LogHelper.d("GET: " + apiURL);
 
-            Log.d("", "HTTP load: " + apiURL);
-            HttpResponse localHttpResponse = localDefaultHttpClient.execute(new HttpGet(apiURL));
-            StatusLine localStatusLine = localHttpResponse.getStatusLine();
+            // Starts the query
+            conn.connect();
 
-            Log.d("", "HTTP return code: " + localStatusLine.getStatusCode());
+            String response = readStream(conn.getInputStream());
 
-            if (localStatusLine.getStatusCode() == 200) {
-                ByteArrayOutputStream localByteArrayOutputStream = new ByteArrayOutputStream();
-                localHttpResponse.getEntity().writeTo(localByteArrayOutputStream);
-                localByteArrayOutputStream.close();
-                return localByteArrayOutputStream.toString();
-            }
-            localHttpResponse.getEntity().getContent().close();
-            throw new IOException(localStatusLine.getReasonPhrase());
-        }
-        catch (ClientProtocolException localClientProtocolException) {
-            Log.e("", localClientProtocolException.getMessage());
-            return null;
-        }
-        catch (IOException localIOException) {
+            LogHelper.d("The response code is: " + conn.getResponseCode());
+            LogHelper.d("The response message is: " + response);
+
+            return response;
+        } catch (IOException localIOException) {
             Log.e("", localIOException.getMessage());
             return null;
         }
@@ -83,7 +76,7 @@ public class InitCurrencyRate extends AsyncTask<Void, Void, String> {
     protected void onPostExecute(String paramString) {
 
         try {
-            Log.d("", paramString);
+            LogHelper.d("", paramString);
 
             JSONObject rates = new JSONObject(paramString).getJSONObject("rates");
 
@@ -94,12 +87,29 @@ public class InitCurrencyRate extends AsyncTask<Void, Void, String> {
             if (mCallback != null) mCallback.onComplete();
         }
         catch (Exception localException) {
-            Log.e("", "Error parse JSON");
+            LogHelper.e("", "Error parse JSON");
         }
     }
 
     private long getCurrentTimeStamp() {
         return new java.sql.Timestamp(Calendar.getInstance().getTime().getTime()).getTime() / 1000;
+    }
+
+    private String readStream(InputStream in) {
+       // InputStream in = address.openStream();
+
+        try {
+            BufferedReader reader = new BufferedReader(new InputStreamReader(in));
+            StringBuilder result = new StringBuilder();
+            String line;
+            while((line = reader.readLine()) != null) {
+                result.append(line);
+            }
+            return result.toString();
+
+        } catch(IOException e) {
+            return null;
+        }
     }
 
     public interface ICallback {

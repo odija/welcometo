@@ -4,6 +4,7 @@ import android.app.Fragment;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -11,6 +12,7 @@ import android.widget.TextView;
 
 import com.welcometo.R;
 import com.welcometo.helpers.DataBaseHelper;
+import com.welcometo.helpers.LogHelper;
 
 import java.math.BigDecimal;
 
@@ -51,6 +53,9 @@ public class CurrencyFragment extends Fragment {
       currencyTo = localBundle.getString(PARAM_CURRENT_CURRENCY);
       lblFrom.setText(currencyFrom);
       lblTo.setText(currencyTo);
+
+        LogHelper.d("" + db.getCurrencyRate(currencyFrom));
+        LogHelper.d("", "" + db.getCurrencyRate(currencyTo));
 
         mCurrencyRate = db.getCurrencyRate(currencyFrom) / db.getCurrencyRate(currencyTo);
         mCurrencyRate = CurrencyFragment.round(mCurrencyRate, 3, 4);

@@ -90,9 +90,14 @@ public class SettingsFragment extends Fragment {
 
         CountryAdapterItem localCountryAdapterItem = new CountryAdapterItem(getActivity(), R.layout.country_item, this.mCountries);
         localCountryAdapterItem.setDropDownViewResource(R.layout.country_list_item);
-        Spinner localSpinner = (Spinner)localView.findViewById(R.id.countryList);
-        localSpinner.setAdapter(localCountryAdapterItem);
-        localSpinner.setOnItemSelectedListener(new mySpinnerListener());
+
+        Spinner spinnerFrom = (Spinner)localView.findViewById(R.id.countryListFrom);
+        spinnerFrom.setAdapter(localCountryAdapterItem);
+
+        Spinner spinnerTo = (Spinner)localView.findViewById(R.id.countryListTo);
+        spinnerTo.setAdapter(localCountryAdapterItem);
+        spinnerTo.setOnItemSelectedListener(new mySpinnerListener());
+
         return localView;
     }
 

@@ -18,6 +18,7 @@ import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
 import com.welcometo.R;
+import com.welcometo.helpers.ConnectionHelper;
 import com.welcometo.helpers.Constants;
 import com.welcometo.helpers.Country;
 import com.welcometo.helpers.CountryHelper;
@@ -91,11 +92,6 @@ public class MainScreen extends Activity implements SettingsFragment.OnSettingsL
       new Handler().postDelayed(openDrawerRunnable(), 1000L);
     }
 
-    // init currency
-    //if (ConnectionHelper.isConnected(this)) {
-    //  new InitCurrencyRate(this).execute();
-    //}
-
     mInitCurrencyJobSheduler = (JobScheduler) getSystemService(Context.JOB_SCHEDULER_SERVICE);
 
     JobInfo.Builder builder = new JobInfo.Builder(1, new ComponentName(getPackageName(),
@@ -103,7 +99,10 @@ public class MainScreen extends Activity implements SettingsFragment.OnSettingsL
 
     mInitCurrencyJobSheduler.schedule(builder.build());
 
-    new InitCurrencyRate(getApplicationContext(), null).execute();
+    // init currency
+    if (ConnectionHelper.isConnected(this)) {
+      new InitCurrencyRate(this, null).execute();
+    }
   }
 
   public static String getEmergencyNumberByCountryCode(String paramString) {

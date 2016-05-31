@@ -15,7 +15,6 @@ import com.welcometo.helpers.Country;
 import com.welcometo.helpers.DataBaseHelper;
 import com.welcometo.helpers.SharedPreferencesHelper;
 
-import java.io.IOException;
 import java.util.ArrayList;
 
 public class InitScreen extends Activity {
@@ -63,7 +62,7 @@ public class InitScreen extends Activity {
   private DataBaseHelper connectToDB()  {
     DataBaseHelper localDataBaseHelper = DataBaseHelper.getInstance(this);
 
-    localDataBaseHelper.connectToDB();
+    localDataBaseHelper.open();
 
     return localDataBaseHelper;
   }

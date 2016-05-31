@@ -22,9 +22,7 @@ import java.util.Locale;
 
 public class TranslatorFragment extends Fragment {
 
-  private static final int MY_DATA_CHECK_CODE = 123;
   private Country mCurrentCountry;
-  private Locale mCurrentLocale;
 
   private TextView mTxtHi;
   private TextView mTxtHRU;

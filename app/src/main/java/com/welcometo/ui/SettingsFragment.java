@@ -1,7 +1,6 @@
 package com.welcometo.ui;
 
 import android.app.Activity;
-import android.net.Uri;
 import android.os.Bundle;
 import android.app.Fragment;
 import android.util.Log;
@@ -10,13 +9,11 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.Spinner;
-import android.widget.TextView;
 
 import com.welcometo.R;
-import com.welcometo.helpers.Constants;
 import com.welcometo.helpers.Country;
 import com.welcometo.helpers.DataBaseHelper;
-import com.welcometo.helpers.SharedPreferencesHelper;
+import com.welcometo.helpers.LogHelper;
 
 import java.util.ArrayList;
 
@@ -39,9 +36,6 @@ public class SettingsFragment extends Fragment {
     private String mParam2;
 
     private OnSettingsListener mListener;
-
-    private ArrayList<Country> mCountries;
-
 
     /**
      * Use this factory method to create a new instance of
@@ -72,15 +66,6 @@ public class SettingsFragment extends Fragment {
             mParam1 = getArguments().getString(ARG_PARAM1);
             mParam2 = getArguments().getString(ARG_PARAM2);
         }
-
-        // init country list
-        Country localCountry = new Country();
-        localCountry.setName(getResources().getString(R.string.what_is_your_dest));
-        localCountry.setCode("0");
-        this.mCountries = new ArrayList<Country>();
-        this.mCountries.add(localCountry);
-        this.mCountries.addAll(DataBaseHelper.getInstance(getActivity()).getCountries());
-
     }
 
     @Override
@@ -88,15 +73,19 @@ public class SettingsFragment extends Fragment {
                              Bundle savedInstanceState) {
         View localView = inflater.inflate(R.layout.settings, container, false);
 
-        CountryAdapterItem localCountryAdapterItem = new CountryAdapterItem(getActivity(), R.layout.country_item, this.mCountries);
-        localCountryAdapterItem.setDropDownViewResource(R.layout.country_list_item);
+        CountryAdapterItem adapterItemFrom = new CountryAdapterItem(getActivity(), R.layout.country_item, getCountryList(R.string.where_are_you_from));
+        adapterItemFrom.setDropDownViewResource(R.layout.country_list_item);
 
         Spinner spinnerFrom = (Spinner)localView.findViewById(R.id.countryListFrom);
-        spinnerFrom.setAdapter(localCountryAdapterItem);
+        spinnerFrom.setAdapter(adapterItemFrom);
+
+        CountryAdapterItem adapterItemTo = new CountryAdapterItem(getActivity(), R.layout.country_item, getCountryList(R.string.what_is_your_dest));
+        adapterItemFrom.setDropDownViewResource(R.layout.country_list_item);
 
         Spinner spinnerTo = (Spinner)localView.findViewById(R.id.countryListTo);
-        spinnerTo.setAdapter(localCountryAdapterItem);
-        spinnerTo.setOnItemSelectedListener(new mySpinnerListener());
+        spinnerTo.setAdapter(adapterItemTo);
+
+        spinnerTo.setOnItemSelectedListener(new toSpinnerListener());
 
         return localView;
     }
@@ -118,6 +107,17 @@ public class SettingsFragment extends Fragment {
         mListener = null;
     }
 
+    private ArrayList<Country> getCountryList(int resID) {
+        // init country list
+        Country localCountry = new Country();
+        localCountry.setName(getResources().getString(resID));
+        localCountry.setCode("0");
+        ArrayList<Country> countries = new ArrayList<Country>();
+        countries.add(localCountry);
+        countries.addAll(DataBaseHelper.getInstance(getActivity()).getCountries());
+        return countries;
+    }
+
     /**
      * This interface must be implemented by activities that contain this
      * fragment to allow an interaction in this fragment to be communicated
@@ -129,16 +129,37 @@ public class SettingsFragment extends Fragment {
      * >Communicating with Other Fragments</a> for more information.
      */
     public interface OnSettingsListener {
+        void onHomeLand(String countryCode);
         void onCurrentCountry(String countryCode);
     }
 
-    class mySpinnerListener implements AdapterView.OnItemSelectedListener {
+    class fromSpinnerListener implements AdapterView.OnItemSelectedListener {
 
         public void onItemSelected(AdapterView paramAdapterView, View paramView, int paramInt, long paramLong) {
             if (paramInt > 0) {
-                String countryCode = SettingsFragment.this.mCountries.get(paramInt).getCode();
+                Country country = (Country)paramAdapterView.getAdapter().getItem(paramInt);
+                String countryCode = country.getCode();
 
-                Log.d("", "New country code: " + countryCode);
+                Log.d("", "New HOME country code: " + countryCode);
+
+                if (SettingsFragment.this.mListener != null) {
+                    SettingsFragment.this.mListener.onCurrentCountry(countryCode);
+                }
+            }
+        }
+
+        public void onNothingSelected(AdapterView paramAdapterView) {}
+    }
+
+    class toSpinnerListener implements AdapterView.OnItemSelectedListener {
+
+        public void onItemSelected(AdapterView paramAdapterView, View paramView, int paramInt, long paramLong) {
+            if (paramInt > 0) {
+
+                Country country = (Country)paramAdapterView.getAdapter().getItem(paramInt);
+                String countryCode = country.getCode();
+
+                LogHelper.d("New CURRENT country code: " + countryCode);
 
                 if (SettingsFragment.this.mListener != null) {
                     SettingsFragment.this.mListener.onCurrentCountry(countryCode);

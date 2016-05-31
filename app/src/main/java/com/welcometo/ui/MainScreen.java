@@ -2,10 +2,7 @@ package com.welcometo.ui;
 
 import android.app.Activity;
 import android.app.Fragment;
-import android.app.job.JobInfo;
 import android.app.job.JobScheduler;
-import android.content.ComponentName;
-import android.content.Context;
 import android.location.LocationManager;
 import android.os.Bundle;
 import android.os.Handler;
@@ -24,13 +21,16 @@ import com.welcometo.helpers.Country;
 import com.welcometo.helpers.CountryHelper;
 import com.welcometo.helpers.DataBaseHelper;
 import com.welcometo.helpers.InitCurrencyRate;
-import com.welcometo.service.CurrencyRateService;
+import com.welcometo.helpers.LogHelper;
+import com.welcometo.helpers.SharedPreferencesHelper;
+
+import java.util.Calendar;
 
 public class MainScreen extends Activity implements SettingsFragment.OnSettingsListener {
 	
   public static String countryCode;
 
-  private static String TAG = "welcometo";
+  private final int CURRENCY_JOB_ID = 156;
 
   // current country
   private Country mCountry;
@@ -66,6 +66,8 @@ public class MainScreen extends Activity implements SettingsFragment.OnSettingsL
   protected void onCreate(Bundle paramBundle) {
     super.onCreate(paramBundle);
 
+    LogHelper.d("(MainScreen) onCreate");
+
     requestWindowFeature(Window.FEATURE_INDETERMINATE_PROGRESS);
 
     setContentView(R.layout.main_screen);
@@ -92,17 +94,29 @@ public class MainScreen extends Activity implements SettingsFragment.OnSettingsL
       new Handler().postDelayed(openDrawerRunnable(), 1000L);
     }
 
+    /*boolean currencySheduleNeeded = true;
+
     mInitCurrencyJobSheduler = (JobScheduler) getSystemService(Context.JOB_SCHEDULER_SERVICE);
+    for (JobInfo job : mInitCurrencyJobSheduler.getAllPendingJobs()) {
+      if (job.getId() == CURRENCY_JOB_ID) {
+        currencySheduleNeeded = false;
+        break;
+      }
+    }*/
 
-    JobInfo.Builder builder = new JobInfo.Builder(1, new ComponentName(getPackageName(),
-            CurrencyRateService.class.getName())).setPeriodic(24*3600*1000).setRequiredNetworkType(JobInfo.NETWORK_TYPE_ANY);
+    //if (currencySheduleNeeded) {
+      // init currency
 
-    mInitCurrencyJobSheduler.schedule(builder.build());
+    syncCurrency();
 
-    // init currency
-    if (ConnectionHelper.isConnected(this)) {
-      new InitCurrencyRate(this, null).execute();
-    }
+      //JobInfo.Builder builder = new JobInfo.Builder(CURRENCY_JOB_ID, new ComponentName(getPackageName(),
+      //        CurrencyRateService.class.getName())).setRequiredNetworkType(JobInfo.NETWORK_TYPE_ANY).setPeriodic(24 * 3600 * 1000);
+
+      //LogHelper.d("!!!! NEZDANCHYK !!!!");
+
+      //mInitCurrencyJobSheduler.schedule(builder.build());
+    //}
+
   }
 
   public static String getEmergencyNumberByCountryCode(String paramString) {
@@ -119,6 +133,11 @@ public class MainScreen extends Activity implements SettingsFragment.OnSettingsL
     this.mCountry = this.mDBHelper.getCountryByCode(countryCode);
 
     MainScreen.this.getActionBar().setTitle("Welcome To " + MainScreen.this.mCountry.getName());
+  }
+
+  @Override
+  public void onHomeLand(String countryCode) {
+
   }
 
   private Runnable openDrawerRunnable()
@@ -231,7 +250,31 @@ public class MainScreen extends Activity implements SettingsFragment.OnSettingsL
   
   private DataBaseHelper connectToDB() {
     DataBaseHelper localDataBaseHelper = DataBaseHelper.getInstance(this);
-    localDataBaseHelper.connectToDB();
+    localDataBaseHelper.open();
     return localDataBaseHelper;
+  }
+
+  private long getCurrentTimeStamp() {
+    return new java.sql.Timestamp(Calendar.getInstance().getTime().getTime()).getTime() / 1000;
+  }
+
+  private void syncCurrency() {
+    long lastSyncTime = SharedPreferencesHelper.getInstance(this).getLong(InitCurrencyRate.CURRENCY_RATE_SYNC_DATE, 0);
+
+    LogHelper.d("(syncCurrency) lastSyncTime: " + lastSyncTime);
+
+    if (lastSyncTime > 0) {
+      long currentTimeStamp = getCurrentTimeStamp();
+
+      LogHelper.d("(syncCurrency) currentTimeStamp: " + currentTimeStamp);
+
+      if (currentTimeStamp - lastSyncTime > 3600 * 24) {
+        if (ConnectionHelper.isConnected(this)) {
+          new InitCurrencyRate(this, null).execute();
+        }
+      }
+    } else if (ConnectionHelper.isConnected(this)) {
+      new InitCurrencyRate(this, null).execute();
+    }
   }
 }

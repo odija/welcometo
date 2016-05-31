@@ -12,6 +12,7 @@ import android.util.Log;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
@@ -33,7 +34,7 @@ public class DataBaseHelper extends SQLiteOpenHelper {
   private static DataBaseHelper mDBHelper;
 
   private final Context myContext;
-  private SQLiteDatabase myDataBase;
+  private SQLiteDatabase mDataBase;
 
   public static DataBaseHelper getInstance(Context context) {
     if (mDBHelper == null) {
@@ -52,83 +53,34 @@ public class DataBaseHelper extends SQLiteOpenHelper {
     this.myContext = paramContext;
   }
 
-  public void connectToDB() {
-      try {
-        createDataBase();
-      } catch(IOException e) {}
+  public void open() {
 
-      openDataBase();
-  }
-  
-  private boolean checkDataBase() {
-    try {
-      myDataBase = SQLiteDatabase.openDatabase(DB_PATH + DB_NAME, null, 1);
-    }
-    catch (SQLiteException localSQLiteException) {
-    }
-    if (myDataBase != null) {
-      myDataBase.close();
-    }
-    return myDataBase != null;
-  }
-  
-  private void copyDataBase() throws IOException {
-    InputStream localInputStream = this.myContext.getAssets().open(DB_NAME);
-    FileOutputStream localFileOutputStream = new FileOutputStream(DB_PATH + DB_NAME);
-    byte[] arrayOfByte = new byte[1024];
-    for (;;)
-    {
-      int i = localInputStream.read(arrayOfByte);
-      if (i <= 0)
-      {
-        localFileOutputStream.flush();
-        localFileOutputStream.close();
-        localInputStream.close();
-        return;
+      try {
+        openDataBase();
+      } catch (SQLException e) {
+        try {
+          createDataBase();
+          openDataBase();
+        }
+        catch (SQLException e1) {
+
+        }
+        catch (IOException e2) {
+            LogHelper.e("Cant create DB " + e2.getMessage());
+        }
       }
-      localFileOutputStream.write(arrayOfByte, 0, i);
-    }
   }
-  
-  private Country createCountryFromCursor(Cursor paramCursor) {
-    String str1 = paramCursor.getString(0);
-    String str2 = paramCursor.getString(1);
-    Integer localInteger = paramCursor.getInt(2);
-    String str3 = paramCursor.getString(3);
-    Log.d("Country CODE:", str1 + "\n");
-    Log.d("Country NAME:", str2 + "\n");
-    Log.d("Country PHONE CODE:", localInteger + "\n");
-    Log.d("Country LANGUAGE:", str3 + "\n");
-    Country localCountry = new Country();
-    localCountry.setCode(str1);
-    localCountry.setName(str2);
-    localCountry.setPhoneCode(localInteger);
-    localCountry.setLanguage(str3);
-    return localCountry;
-  }
-  
+
   public void close() {
     try {
-      if (this.myDataBase != null) {
-        this.myDataBase.close();
+      if (this.mDataBase != null) {
+        this.mDataBase.close();
       }
       super.close();
     }
     finally {}
   }
-  
-  public void createDataBase() throws IOException {
-    if (!checkDataBase()) {
-      getReadableDatabase();
-    }
-    try {
-      copyDataBase();
-    }
-    catch (IOException localIOException) {
-      throw new Error("Error copying database");
-    }
-  }
-  
+
   public ArrayList<Country> getCountries() {
     ArrayList<Country> localArrayList = new ArrayList<Country>();
     String str = "SELECT  * FROM " + TABLE_COUNTRY;
@@ -140,7 +92,7 @@ public class DataBaseHelper extends SQLiteOpenHelper {
     }
     return localArrayList;
   }
-  
+
   public Country getCountryByCode(String paramString) {
     String str = "SELECT  * FROM " + TABLE_COUNTRY + " WHERE id = '" + paramString + "'";
     Cursor localCursor = getWritableDatabase().rawQuery(str, null);
@@ -151,7 +103,7 @@ public class DataBaseHelper extends SQLiteOpenHelper {
     }
     return localCountry;
   }
-  
+
   public String getCurrencyByCountry(String paramString) {
     String str1 = "SELECT  currency FROM " + TABLE_COUNTRY_CURRENCY + " WHERE country = '" + paramString + "'";
     Cursor localCursor = getWritableDatabase().rawQuery(str1, null);
@@ -202,10 +154,71 @@ public class DataBaseHelper extends SQLiteOpenHelper {
   }
 
   public void onCreate(SQLiteDatabase paramSQLiteDatabase) {}
-  
+
   public void onUpgrade(SQLiteDatabase paramSQLiteDatabase, int paramInt1, int paramInt2) {}
-  
-  public void openDataBase() throws SQLException {
-    this.myDataBase = SQLiteDatabase.openDatabase(DB_PATH + DB_NAME, null, 1);
+
+  private void copyDataBase() throws IOException {
+
+    File databaseFolder = new File(DB_PATH);
+
+    // check if databases folder exists, if not create one and its subfolders
+    if (!databaseFolder.exists()){
+      databaseFolder.mkdir();
+    }
+
+
+    LogHelper.d("1");
+    InputStream localInputStream = this.myContext.getAssets().open(DB_NAME);
+    LogHelper.d("2 " + DB_PATH + "," + DB_NAME);
+    FileOutputStream localFileOutputStream = new FileOutputStream(DB_PATH + DB_NAME);
+    LogHelper.d("3");
+
+    byte[] arrayOfByte = new byte[1024];
+    for (;;)
+    {
+      int i = localInputStream.read(arrayOfByte);
+      if (i <= 0)
+      {
+        localFileOutputStream.flush();
+        localFileOutputStream.close();
+        localInputStream.close();
+        return;
+      }
+      localFileOutputStream.write(arrayOfByte, 0, i);
+    }
   }
+
+  private void openDataBase() throws SQLException {
+    if (this.mDataBase == null) {
+      this.mDataBase = SQLiteDatabase.openDatabase(DB_PATH + DB_NAME, null, 1);
+    }
+  }
+
+  private void createDataBase() throws IOException {
+
+    try {
+      copyDataBase();
+    }
+    catch (IOException localIOException) {
+        throw new Error("Error copying database: " + localIOException.getMessage());
+    }
+  }
+
+  private Country createCountryFromCursor(Cursor paramCursor) {
+    String str1 = paramCursor.getString(0);
+    String str2 = paramCursor.getString(1);
+    Integer localInteger = paramCursor.getInt(2);
+    String str3 = paramCursor.getString(3);
+    Log.d("Country CODE:", str1 + "\n");
+    Log.d("Country NAME:", str2 + "\n");
+    Log.d("Country PHONE CODE:", localInteger + "\n");
+    Log.d("Country LANGUAGE:", str3 + "\n");
+    Country localCountry = new Country();
+    localCountry.setCode(str1);
+    localCountry.setName(str2);
+    localCountry.setPhoneCode(localInteger);
+    localCountry.setLanguage(str3);
+    return localCountry;
+  }
+
 }

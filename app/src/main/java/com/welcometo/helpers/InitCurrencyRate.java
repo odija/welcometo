@@ -23,26 +23,11 @@ public class InitCurrencyRate extends AsyncTask<Void, Void, String> {
     private Context mContext;
     private ICallback mCallback;
 
-    private static String CURRENCY_RATE_SYNC_DATE = "crsd";
+    public static String CURRENCY_RATE_SYNC_DATE = "crsd";
 
     public InitCurrencyRate(Context context, ICallback callback) {
         mContext = context;
         mCallback = callback;
-    }
-
-    @Override
-    protected void onPreExecute() {
-        super.onPreExecute();
-
-        long lastSyncTime = SharedPreferencesHelper.getInstance(mContext).getLong(CURRENCY_RATE_SYNC_DATE, 0);
-
-        if (lastSyncTime > 0) {
-            long currentTimeStamp = getCurrentTimeStamp();
-
-           // if (currentTimeStamp - lastSyncTime < 3600 * 24) {
-           //     cancel(true);
-           // }
-        }
     }
 
     protected String doInBackground(Void... paramVarArgs) {

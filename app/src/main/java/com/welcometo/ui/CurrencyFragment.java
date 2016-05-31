@@ -15,6 +15,7 @@ import com.welcometo.helpers.DataBaseHelper;
 import com.welcometo.helpers.LogHelper;
 
 import java.math.BigDecimal;
+import java.security.acl.LastOwnerException;
 
 public class CurrencyFragment extends Fragment {
 
@@ -54,10 +55,10 @@ public class CurrencyFragment extends Fragment {
       lblFrom.setText(currencyFrom);
       lblTo.setText(currencyTo);
 
-        LogHelper.d("" + db.getCurrencyRate(currencyFrom));
-        LogHelper.d("", "" + db.getCurrencyRate(currencyTo));
+        LogHelper.d("(CurrencyFragment.onCreateView) currency FROM: " + db.getCurrencyRate(currencyFrom));
+        LogHelper.d("(CurrencyFragment.onCreateView) currency TO: " + db.getCurrencyRate(currencyTo));
 
-        mCurrencyRate = db.getCurrencyRate(currencyFrom) / db.getCurrencyRate(currencyTo);
+        mCurrencyRate = db.getCurrencyRate(currencyTo) / db.getCurrencyRate(currencyFrom);
         mCurrencyRate = CurrencyFragment.round(mCurrencyRate, 3, 4);
         showRateLabel(currencyFrom, currencyTo, mCurrencyRate);
     } else {
@@ -110,6 +111,7 @@ public class CurrencyFragment extends Fragment {
     };
 
     public static double round(double paramDouble, int paramInt1, int paramInt2) {
+
         return new BigDecimal(paramDouble).setScale(paramInt1, paramInt2).doubleValue();
     }
 
@@ -118,7 +120,7 @@ public class CurrencyFragment extends Fragment {
         this.lblRate.setText(paramString);
     }
 
-    private void showRateLabel(String paramString1, String paramString2, double paramDouble) {
-        this.lblRate.setText("1 " + paramString1 + " = " + paramDouble + " " + paramString2);
+    private void showRateLabel(String from, String to, double rate) {
+        this.lblRate.setText("1 " + from + " = " + rate + " " + to);
     }
 }

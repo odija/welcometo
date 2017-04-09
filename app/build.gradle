@@ -10,12 +10,26 @@ android {
         minSdkVersion 21
         targetSdkVersion 23
         versionCode 1
-        versionName "1.0"
+        versionName "0.0.1"
     }
     buildTypes {
         release {
-            minifyEnabled false
+            minifyEnabled true
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+
+            applicationVariants.all { variant ->
+                variant.outputs.each { output ->
+                    def date = new Date();
+                    def formattedDate = date.format('yyMMdd')
+                    def versionName = variant.versionName;
+
+                    def apkCurrentName  = "app-release"
+                    def apkFinalName = "WLCM2-v_" + versionName + "_" + formattedDate //+ "_" + server
+
+                    output.outputFile = new File(output.outputFile.parent, output.outputFile.name.replace(apkCurrentName, apkFinalName))
+
+            }
         }
     }
 }

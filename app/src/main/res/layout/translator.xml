@@ -19,7 +19,7 @@
 
   <Button android:id="@id/btnHowAreYou" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginRight="14.0dip" android:text=">" android:layout_alignBaseline="@id/txtHRU" android:layout_alignBottom="@id/txtHRU" android:layout_alignParentRight="true" />
   <Button android:id="@id/btnHi" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text=">" android:layout_alignBaseline="@id/txtHi" android:layout_alignLeft="@id/btnHowAreYou" android:layout_alignBottom="@id/txtHi" />
-  <Button android:id="@id/btnThanks" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text=">" android:layout_alignBaseline="@id/textView6" android:layout_alignLeft="@id/btnHowAreYou" android:layout_alignBottom="@id/txtThanks" />
-  <Button android:id="@id/btnHowMuch" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text=">" android:layout_alignBaseline="@id/textView6" android:layout_alignLeft="@id/btnHowAreYou" android:layout_alignBottom="@id/txtHowMuch" />
+  <Button android:id="@id/btnThanks" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text=">"  android:layout_alignLeft="@id/btnHowAreYou" android:layout_alignBottom="@id/txtThanks" />
+  <Button android:id="@id/btnHowMuch" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text=">"  android:layout_alignLeft="@id/btnHowAreYou" android:layout_alignBottom="@id/txtHowMuch" />
 
 </RelativeLayout>

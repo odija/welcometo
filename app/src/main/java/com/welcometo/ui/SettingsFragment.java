@@ -26,6 +26,7 @@ import java.util.ArrayList;
  * create an instance of this fragment.
  */
 public class SettingsFragment extends Fragment {
+
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
@@ -78,6 +79,8 @@ public class SettingsFragment extends Fragment {
 
         Spinner spinnerFrom = (Spinner)localView.findViewById(R.id.countryListFrom);
         spinnerFrom.setAdapter(adapterItemFrom);
+
+        spinnerFrom.setOnItemSelectedListener(new fromSpinnerListener());
 
         CountryAdapterItem adapterItemTo = new CountryAdapterItem(getActivity(), R.layout.country_item, getCountryList(R.string.what_is_your_dest));
         adapterItemFrom.setDropDownViewResource(R.layout.country_list_item);
@@ -140,10 +143,10 @@ public class SettingsFragment extends Fragment {
                 Country country = (Country)paramAdapterView.getAdapter().getItem(paramInt);
                 String countryCode = country.getCode();
 
-                Log.d("", "New HOME country code: " + countryCode);
+                LogHelper.d("New HOME country code: " + countryCode);
 
                 if (SettingsFragment.this.mListener != null) {
-                    SettingsFragment.this.mListener.onCurrentCountry(countryCode);
+                    SettingsFragment.this.mListener.onHomeLand(countryCode);
                 }
             }
         }

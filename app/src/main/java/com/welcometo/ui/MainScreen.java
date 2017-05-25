@@ -13,6 +13,7 @@ import android.view.Window;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
+import android.widget.Toast;
 
 import com.welcometo.R;
 import com.welcometo.helpers.ConnectionHelper;
@@ -27,7 +28,7 @@ import com.welcometo.helpers.SharedPreferencesHelper;
 import java.util.Calendar;
 
 public class MainScreen extends Activity implements SettingsFragment.OnSettingsListener {
-	
+
   public static String countryCode;
 
   private final int CURRENCY_JOB_ID = 156;
@@ -92,7 +93,7 @@ public class MainScreen extends Activity implements SettingsFragment.OnSettingsL
     // open sidebar menu
     if (this.mCountry != null) {
       new Handler().postDelayed(openDrawerRunnable(), 1000L);
-    }
+
 
     /*boolean currencySheduleNeeded = true;
 
@@ -104,10 +105,10 @@ public class MainScreen extends Activity implements SettingsFragment.OnSettingsL
       }
     }*/
 
-    //if (currencySheduleNeeded) {
+      //if (currencySheduleNeeded) {
       // init currency
 
-    syncCurrency();
+      syncCurrency();
 
       //JobInfo.Builder builder = new JobInfo.Builder(CURRENCY_JOB_ID, new ComponentName(getPackageName(),
       //        CurrencyRateService.class.getName())).setRequiredNetworkType(JobInfo.NETWORK_TYPE_ANY).setPeriodic(24 * 3600 * 1000);
@@ -115,7 +116,12 @@ public class MainScreen extends Activity implements SettingsFragment.OnSettingsL
       //LogHelper.d("!!!! NEZDANCHYK !!!!");
 
       //mInitCurrencyJobSheduler.schedule(builder.build());
-    //}
+      //}
+
+    } else {
+      setProgressBarIndeterminateVisibility(false);
+      Toast.makeText(this, "Can't recognise current country. Use settings!", Toast.LENGTH_LONG).show();
+    }
 
   }
 
@@ -137,7 +143,7 @@ public class MainScreen extends Activity implements SettingsFragment.OnSettingsL
 
   @Override
   public void onHomeLand(String countryCode) {
-
+      SharedPreferencesHelper.getInstance(this).putString(Constants.OWN_COUNTRY_CODE, countryCode);
   }
 
   private Runnable openDrawerRunnable()
@@ -157,21 +163,21 @@ public class MainScreen extends Activity implements SettingsFragment.OnSettingsL
   
   private void selectItem(int paramInt) {
     switch (paramInt) {
-	    case 0:
-	    	showInfoFragment();
-	    	break;
-	    	
-	    case 1:
-	    	showCurrencyFragment();
-	    	break;
-	    	
-	    case 2:
-	    	showTranslatorFragment();
-	    	break;
-	    	
-	    case 3:
-	    	showEmergencyButtonFragment();
-	    	break;
+        case 0:
+            showInfoFragment();
+            break;
+
+        case 1:
+            showCurrencyFragment();
+            break;
+
+        case 2:
+            showTranslatorFragment();
+            break;
+
+        case 3:
+            showEmergencyButtonFragment();
+            break;
 
         case 4:
             showSettingsFragment();
@@ -240,12 +246,12 @@ public class MainScreen extends Activity implements SettingsFragment.OnSettingsL
   }
 
   private class DrawerItemClickListener implements ListView.OnItemClickListener {
-	
-	  @Override
-	 public void onItemClick(AdapterView paramAdapterView, View paramView, int paramInt, long paramLong) {
-		 MainScreen.this.selectItem(paramInt);
-		System.out.println("TEST");
-	 }
+
+      @Override
+     public void onItemClick(AdapterView paramAdapterView, View paramView, int paramInt, long paramLong) {
+         MainScreen.this.selectItem(paramInt);
+        System.out.println("TEST");
+     }
   }
   
   private DataBaseHelper connectToDB() {

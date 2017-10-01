@@ -2,8 +2,6 @@ package com.welcometo.ui;
 
 import android.app.Activity;
 import android.app.Fragment;
-import android.app.job.JobScheduler;
-import android.location.LocationManager;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.v4.widget.DrawerLayout;
@@ -31,39 +29,13 @@ public class MainScreen extends Activity implements SettingsFragment.OnSettingsL
 
   public static String countryCode;
 
-  private final int CURRENCY_JOB_ID = 156;
-
   // current country
   private Country mCountry;
   private DataBaseHelper mDBHelper;
   private DrawerLayout mDrawerLayout;
   private ListView mDrawerList;
-  private LocationManager mLocationManager;
   private String[] mMenuItems;
 
-  private JobScheduler mInitCurrencyJobSheduler;
-  
-  /*public static Address getAddress(Context paramContext, double paramDouble1, double paramDouble2)
-  {
-    Geocoder localGeocoder = new Geocoder(paramContext, Locale.US);
-    try
-    {
-      List localList2 = localGeocoder.getFromLocation(paramDouble1, paramDouble2, 1);
-      localList1 = localList2;
-    }
-    catch (IOException localIOException)
-    {
-      for (;;)
-      {
-        List localList1 = null;
-      }
-    }
-    if ((localList1 != null) && (!localList1.isEmpty())) {
-      return (Address)localList1.get(0);
-    }
-    return null;
-  }*/
-  
   protected void onCreate(Bundle paramBundle) {
     super.onCreate(paramBundle);
 
@@ -94,30 +66,7 @@ public class MainScreen extends Activity implements SettingsFragment.OnSettingsL
     if (this.mCountry != null) {
       new Handler().postDelayed(openDrawerRunnable(), 1000L);
 
-
-    /*boolean currencySheduleNeeded = true;
-
-    mInitCurrencyJobSheduler = (JobScheduler) getSystemService(Context.JOB_SCHEDULER_SERVICE);
-    for (JobInfo job : mInitCurrencyJobSheduler.getAllPendingJobs()) {
-      if (job.getId() == CURRENCY_JOB_ID) {
-        currencySheduleNeeded = false;
-        break;
-      }
-    }*/
-
-      //if (currencySheduleNeeded) {
-      // init currency
-
       syncCurrency();
-
-      //JobInfo.Builder builder = new JobInfo.Builder(CURRENCY_JOB_ID, new ComponentName(getPackageName(),
-      //        CurrencyRateService.class.getName())).setRequiredNetworkType(JobInfo.NETWORK_TYPE_ANY).setPeriodic(24 * 3600 * 1000);
-
-      //LogHelper.d("!!!! NEZDANCHYK !!!!");
-
-      //mInitCurrencyJobSheduler.schedule(builder.build());
-      //}
-
     } else {
       setProgressBarIndeterminateVisibility(false);
       Toast.makeText(this, "Can't recognise current country. Use settings!", Toast.LENGTH_LONG).show();
@@ -138,7 +87,7 @@ public class MainScreen extends Activity implements SettingsFragment.OnSettingsL
 
     this.mCountry = this.mDBHelper.getCountryByCode(countryCode);
 
-    MainScreen.this.getActionBar().setTitle("Welcome To " + MainScreen.this.mCountry.getName());
+    this.getActionBar().setTitle("Welcome To " + this.mCountry.getName());
   }
 
   @Override
@@ -146,8 +95,7 @@ public class MainScreen extends Activity implements SettingsFragment.OnSettingsL
       SharedPreferencesHelper.getInstance(this).putString(Constants.OWN_COUNTRY_CODE, countryCode);
   }
 
-  private Runnable openDrawerRunnable()
-  {
+  private Runnable openDrawerRunnable() {
     return new Runnable()
     {
       public void run()
@@ -192,11 +140,6 @@ public class MainScreen extends Activity implements SettingsFragment.OnSettingsL
   }
   
   private void showCurrencyFragment() {
-    //InputMethodManager localInputMethodManager = (InputMethodManager)getSystemService("input_method");
-    //if (localInputMethodManager != null) {
-      //localInputMethodManager.toggleSoftInput(2, 0);
-    //}
-
     Bundle paramBundle = new Bundle();
 
     // get current currency

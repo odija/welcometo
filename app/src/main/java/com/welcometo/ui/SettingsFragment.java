@@ -3,7 +3,6 @@ package com.welcometo.ui;
 import android.app.Activity;
 import android.os.Bundle;
 import android.app.Fragment;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -11,9 +10,11 @@ import android.widget.AdapterView;
 import android.widget.Spinner;
 
 import com.welcometo.R;
+import com.welcometo.helpers.Constants;
 import com.welcometo.helpers.Country;
 import com.welcometo.helpers.DataBaseHelper;
 import com.welcometo.helpers.LogHelper;
+import com.welcometo.helpers.SharedPreferencesHelper;
 
 import java.util.ArrayList;
 
@@ -32,9 +33,8 @@ public class SettingsFragment extends Fragment {
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
 
-    // TODO: Rename and change types of parameters
-    private String mParam1;
-    private String mParam2;
+    private Country mCurrentCountry;
+    private Country mHomeCountry;
 
     private OnSettingsListener mListener;
 
@@ -64,8 +64,8 @@ public class SettingsFragment extends Fragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         if (getArguments() != null) {
-            mParam1 = getArguments().getString(ARG_PARAM1);
-            mParam2 = getArguments().getString(ARG_PARAM2);
+            mCurrentCountry = getArguments().getParcelable(Constants.PARAM_COUNTRY);
+            mHomeCountry = DataBaseHelper.getInstance(getActivity()).getCountryByCode(SharedPreferencesHelper.getInstance(getActivity()).getString(Constants.OWN_COUNTRY_CODE));
         }
     }
 
@@ -79,7 +79,7 @@ public class SettingsFragment extends Fragment {
 
         Spinner spinnerFrom = (Spinner)localView.findViewById(R.id.countryListFrom);
         spinnerFrom.setAdapter(adapterItemFrom);
-
+        spinnerFrom.setSelection(adapterItemFrom.getPosition(mHomeCountry));
         spinnerFrom.setOnItemSelectedListener(new fromSpinnerListener());
 
         CountryAdapterItem adapterItemTo = new CountryAdapterItem(getActivity(), R.layout.country_item, getCountryList(R.string.what_is_your_dest));
@@ -87,6 +87,8 @@ public class SettingsFragment extends Fragment {
 
         Spinner spinnerTo = (Spinner)localView.findViewById(R.id.countryListTo);
         spinnerTo.setAdapter(adapterItemTo);
+
+        spinnerTo.setSelection(adapterItemTo.getPosition(mCurrentCountry));
 
         spinnerTo.setOnItemSelectedListener(new toSpinnerListener());
 
@@ -114,7 +116,6 @@ public class SettingsFragment extends Fragment {
         // init country list
         Country localCountry = new Country();
         localCountry.setName(getResources().getString(resID));
-        localCountry.setCode("0");
         ArrayList<Country> countries = new ArrayList<Country>();
         countries.add(localCountry);
         countries.addAll(DataBaseHelper.getInstance(getActivity()).getCountries());

@@ -3,6 +3,7 @@ package com.welcometo.helpers;
 import android.os.Parcel;
 import android.os.Parcelable;
 import android.os.Parcelable.Creator;
+import android.support.annotation.NonNull;
 
 public class Country implements Parcelable {
 
@@ -16,10 +17,20 @@ public class Country implements Parcelable {
     }
   };
 
-  private String mCode;
+  private String mCode = "0";
   private String mLanguage;
   private String mName;
-  private Integer mPhoneCode;
+  private Integer mPhoneCode = -9999;
+
+  @Override
+  public int hashCode() {
+    return mPhoneCode;
+  }
+
+  @Override
+  public boolean equals(Object o) {
+    return hashCode() == o.hashCode();
+  }
 
   public Country() {
 
@@ -32,7 +43,8 @@ public class Country implements Parcelable {
     this.mPhoneCode = Integer.valueOf(arrayOfString[2]);
     this.mLanguage = arrayOfString[3];
   }
-  
+
+
   public int describeContents() {
     return 0;
   }

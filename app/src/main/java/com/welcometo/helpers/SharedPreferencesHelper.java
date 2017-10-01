@@ -75,16 +75,19 @@ public class SharedPreferencesHelper
     catch (NullPointerException localNullPointerException) {}
     return paramLong;
   }
-  
-  public String getString(String paramString1, String paramString2)
-  {
-    try
-    {
-      String str = getSP().getString(paramString1, paramString2);
+
+  public String getString(String key) {
+    return getString(key, null);
+  }
+
+  public String getString(String key, String defValue) {
+    try {
+      String str = getSP().getString(key, defValue);
       return str;
     }
     catch (NullPointerException localNullPointerException) {}
-    return paramString2;
+
+    return defValue;
   }
   
   public void putBoolean(String paramString, boolean paramBoolean)
